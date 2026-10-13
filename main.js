@@ -31,7 +31,7 @@ function setupScrollytelling() {
   const loaderText = document.getElementById('loader-text');
 
   const totalFrames = 120;
-  // Critical buffer: 16 frames in WebP (~1 MB) to initiate scrollytelling in under 1.5s
+  // Critical buffer: 16 frames in WebP (~1 MB) to initiate scrollytelling
   const CRITICAL_BUFFER = 16;
   const images = new Array(totalFrames);
   let loadedCount = 0;
@@ -44,6 +44,10 @@ function setupScrollytelling() {
   let scrollProgress = 0;
   let lastDrawnIndex = -1;
 
+  // Cinematic 3.8-second loading duration requested by user (between 3-5s)
+  const MIN_LOAD_DURATION = 3800;
+  const loadStartTime = performance.now();
+
   function onFrameLoad(index) {
     loadedCount++;
     if (index < CRITICAL_BUFFER) {
@@ -54,8 +58,6 @@ function setupScrollytelling() {
     if (index === 0 && !isInitialized) {
       resizeCanvas();
     }
-
-    updateLoaderProgress();
   }
 
   function onFrameError(index, e) {
@@ -70,21 +72,39 @@ function setupScrollytelling() {
     fallbackImg.onerror = () => {
       loadedCount++;
       if (index < CRITICAL_BUFFER) criticalLoadedCount++;
-      updateLoaderProgress();
     };
   }
 
+  // Smooth cinematic progress counter running over 3.8 seconds
   function updateLoaderProgress() {
     if (isLoaderDismissed) return;
 
-    const progressPercent = Math.min(100, Math.round((criticalLoadedCount / CRITICAL_BUFFER) * 100));
-    if (loaderBar) loaderBar.style.width = `${progressPercent}%`;
-    if (loaderText) loaderText.textContent = `Waking sanctuary... ${progressPercent}%`;
+    const elapsed = performance.now() - loadStartTime;
+    const timeRatio = Math.min(1, elapsed / MIN_LOAD_DURATION);
+    
+    // Natural easing curve for elegant luxury pacing
+    const progressPercent = Math.min(100, Math.round((1 - Math.pow(1 - timeRatio, 2.2)) * 100));
 
-    if (criticalLoadedCount >= CRITICAL_BUFFER) {
-      dismissLoader();
+    if (loaderBar) loaderBar.style.width = `${progressPercent}%`;
+    if (loaderText) {
+      if (progressPercent >= 100) {
+        loaderText.textContent = 'Sanctuary ready';
+      } else {
+        loaderText.textContent = `Waking sanctuary... ${progressPercent}%`;
+      }
     }
+
+    // Unlock once minimum 3.8s has elapsed AND critical frames are available
+    if (elapsed >= MIN_LOAD_DURATION && criticalLoadedCount >= Math.min(CRITICAL_BUFFER, loadedCount || 1)) {
+      dismissLoader();
+      return;
+    }
+
+    requestAnimationFrame(updateLoaderProgress);
   }
+
+  // Start smooth progress animation
+  requestAnimationFrame(updateLoaderProgress);
 
   function dismissLoader() {
     if (isLoaderDismissed) return;
@@ -96,15 +116,15 @@ function setupScrollytelling() {
     setTimeout(() => {
       if (loader) loader.classList.add('hidden');
       initializeScrolly();
-    }, 300);
+    }, 450);
   }
 
-  // Safety fallback: Under no circumstances should the loader trap the user for > 2.8s
+  // Maximum cap of 5.0 seconds as requested
   const safetyTimeout = setTimeout(() => {
     if (!isLoaderDismissed) {
       dismissLoader();
     }
-  }, 2800);
+  }, 5000);
 
   function loadFrame(i) {
     if (images[i]) return;
