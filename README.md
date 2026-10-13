@@ -1,43 +1,91 @@
 # 🏎️ ZEN GT — The Art of Mindful Driving
 
-[![Vercel Ready](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel&style=flat-square)](https://vercel.com)
-[![Vite](https://img.shields.io/badge/Bundler-Vite%205.x-646CFF?logo=vite&style=flat-square)](https://vitejs.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-gold.svg?style=flat-square)](LICENSE)
-[![WCAG AA](https://img.shields.io/badge/Accessibility-WCAG%20AA%20Compliant-green?style=flat-square)]()
-[![SEO Optimized](https://img.shields.io/badge/SEO-100%2F100-brightgreen?style=flat-square)]()
+<p align="center">
+  <img src="public/og-image.jpg" alt="ZEN GT Hero Showcase" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" />
+</p>
+
+<p align="center">
+  <a href="https://zen-car-eta.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-zen--car--eta.vercel.app-gold?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
+  <a href="https://github.com/hackerstudent29/zen-car"><img src="https://img.shields.io/badge/GitHub-hackerstudent29%2Fzen--car-white?style=for-the-badge&logo=github" alt="GitHub Repo" /></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Bundler-Vite%205.x-646CFF?logo=vite&style=flat-square" alt="Vite 5" />
+  <img src="https://img.shields.io/badge/Canvas-60%20FPS%20Scrollytelling-10B981?style=flat-square" alt="60 FPS Canvas" />
+  <img src="https://img.shields.io/badge/License-MIT-gold.svg?style=flat-square" alt="License: MIT" />
+  <img src="https://img.shields.io/badge/Accessibility-WCAG%20AA%20Compliant-green?style=flat-square" alt="WCAG AA" />
+  <img src="https://img.shields.io/badge/SEO-100%2F100-brightgreen?style=flat-square" alt="SEO 100/100" />
+  <img src="https://img.shields.io/badge/Security-HSTS%20%7C%20TLS%201.3-blue?style=flat-square" alt="TLS 1.3" />
+</p>
 
 > *“A study in automotive minimalism, whisper acoustics, and high-performance tranquility.”*
 
-**ZEN GT** is an ultra-premium, interactive web sanctuary for a next-generation electric hypercar. It blends cinematic scrollytelling, high-frame-rate canvas animation, 3D interactive HUD mechanics, and an audio-visual full-drive immersion mode.
+**ZEN GT** is an ultra-premium, interactive web sanctuary for a next-generation bespoke electric hypercar. Engineered with cinematic scrollytelling, high-frame-rate canvas animation, interactive 3D HUD telemetry mechanics, an ambient meditative sanctuary, and an audio-visual full-drive immersion theater.
+
+🔗 **Live Production Experience**: [https://zen-car-eta.vercel.app](https://zen-car-eta.vercel.app)
+
+---
+
+## ✨ Key Architectural Highlights
+
+1. **🎬 120-Frame 60FPS Scrollytelling Engine**:
+   - 120 high-fidelity sequential frames synchronized with scroll depth.
+   - Dual-mode WebP progressive loader with graceful high-res fallback interpolation.
+   - Smooth Linear Interpolation (LERP) rendering loop ensuring seamless 60 FPS frame scrubs.
+
+2. **🧭 Floating Frosted Glassmorphism Dock**:
+   - Translucent glass capsule (`backdrop-filter: blur(16px)`, `rgba(255, 255, 255, 0.16)`) featuring the glowing **`ZEN`** brand logo.
+   - Pure intuitive iconography: Overview, GT Anatomy, Philosophy, and Full Cinematic Film.
+
+3. **📊 Interactive Telemetry HUD & GT Anatomy**:
+   - Real-time specifications: **0-60 mph in 2.1s**, **820 HP**, **92 kWh Solid-State Battery**, **0.20 Cd** drag coefficient.
+   - Acoustic decibel monitoring (under 42 dB cabin whisper acoustics).
+   - Dynamic 3D cursor tilt effects and telemetry tab state switching.
+
+4. **🧘 Ambient Zen Sanctuary Overlay**:
+   - Procedural guided meditation and breathing animation.
+   - Rotating philosophical passages on tranquility, engineering, and focus.
+   - Generative blooming rose SVG visualization.
+
+5. **📱 Mobile-First Architectural Layout**:
+   - **2-Column Symmetrical Grid**: Compact frosted glass cards for Navigation and Allocation.
+   - **Horizontal Governance Capsule**: Seamless legal and concierge access without vertical clutter.
+   - **Centered Sanctuary Brand Block**: Quick Reserve GT CTA pill and Return to Sanctuary top glide button.
+   - Safe-area bottom clearance (`env(safe-area-inset-bottom)`) preventing dock overlap.
+
+6. **🔒 Institutional Security & Privacy**:
+   - Zero third-party tracker cookies.
+   - Client-side form spam honeypot and interaction timestamp rate-limiting.
+   - Full HSTS Preload (`max-age=63072000`), `X-Frame-Options`, `X-Content-Type-Options: nosniff`.
 
 ---
 
 ## ⚡ 20 Pre-Launch Checklist Matrix
 
-All 20 essential pre-launch requirements have been meticulously audited and engineered into this production codebase:
+All 20 essential production requirements are meticulously implemented:
 
-| # | Item | Status | Implementation Details |
+| # | Requirement | Status | Implementation Details |
 |---|---|:---:|---|
-| **1** | **Privacy Policy Page** | ✅ | Dedicated [privacy.html](privacy.html) covering data minimization, GDPR/CCPA, cookie policies, and concierge deletion protocols. |
-| **2** | **Terms & Conditions Page** | ✅ | Dedicated [terms.html](terms.html) detailing priority allocation queues, intellectual property, and escrow refundability. |
-| **3** | **Secrets Off the Front End** | ✅ | Zero exposed credentials. Environment variables abstracted via `.env.example` with strict client variable separation. |
-| **4** | **Force HTTPS & Security Headers** | ✅ | Configured in [vercel.json](vercel.json) with strict HSTS preload (`max-age=63072000`), `X-Frame-Options`, `X-Content-Type-Options: nosniff`, and `Permissions-Policy`. |
-| **5** | **Cookie Consent Banner** | ✅ | Floating glassmorphic banner in [main.js](main.js) and [index.html](index.html) with persistent `localStorage` memory and non-essential telemetry opt-out. |
-| **6** | **Meta Titles & Descriptions** | ✅ | Complete SEO headers on all 5 HTML pages: title, meta description, keywords, canonical URLs, author, and OpenGraph/Twitter tags. |
-| **7** | **Social Preview Image** | ✅ | High-resolution branded social share image `public/og-image.jpg` linked via `og:image` and `twitter:image`. |
-| **8** | **Favicon & Web Manifest** | ✅ | Scalable vector SVG crest [public/favicon.svg](public/favicon.svg) and PWA manifest [public/site.webmanifest](public/site.webmanifest). |
-| **9** | **Sitemap & robots.txt** | ✅ | Complete search-engine crawl map in [public/sitemap.xml](public/sitemap.xml) and crawler directives in [public/robots.txt](public/robots.txt). |
-| **10** | **Alt Text on All Images** | ✅ | Descriptive, contextual `alt` attributes across every media element and technical diagram. |
-| **11** | **Image Compression** | ✅ | WebP/JPEG optimized assets; bloated raw zip archives excluded via `.gitignore` to prevent repository bloat. |
-| **12** | **Page Load Speed Optimization** | ✅ | Preloaded critical fonts, `loading="lazy"` and `decoding="async"` on below-the-fold media, non-blocking frame cache. |
-| **13** | **WCAG AA Color Contrast** | ✅ | 4.6:1+ contrast on cream backgrounds, 6.5:1+ contrast on dark charcoal canvas, and high-visibility `:focus-visible` outlines. |
-| **14** | **Mobile Friendly & Responsive** | ✅ | Responsive CSS media queries (`<=1024px`, `<=768px`, `<=480px`), responsive viewport clamp typography, and touch targets >= 44px. |
-| **15** | **Custom 404 Page** | ✅ | Atmospheric branded [404.html](404.html) with return navigation and full-drive cinematic links. |
-| **16** | **Fixed Broken Links** | ✅ | All internal anchors (`#hero`, `#showcase`, `#philosophy`, `#performance`, `#finale`), modal triggers, and legal links verified. |
-| **17** | **Client-Side Form Validation** | ✅ | Real-time input validation on reservation form with regex checking for email/phone, ARIA attributes, and visual error feedback. |
-| **18** | **Spam & Bot Protection** | ✅ | Invisible honeypot trap field, 1.2s minimum interaction speed trap, and 30-second client-side cooldown rate limiter. |
-| **19** | **Privacy Analytics Setup** | ✅ | Event tracker in [analytics.js](analytics.js) recording pageviews, tab switches, and reservation conversions (ready for Vercel Analytics). |
-| **20** | **Clear Call to Action (CTA)** | ✅ | Prominent "Reserve GT" floating header CTA, hero CTA, specs CTA, and grand finale modal reservation flow. |
+| **1** | **Privacy Policy Page** | ✅ | Dedicated [privacy.html](privacy.html) covering GDPR/CCPA, data minimization, and deletion protocols. |
+| **2** | **Terms & Conditions Page** | ✅ | Dedicated [terms.html](terms.html) covering priority allocations, escrow terms, and warranty. |
+| **3** | **Secrets Off Frontend** | ✅ | Zero client secret exposure. Environment abstracted via `.env.example`. |
+| **4** | **Force HTTPS & Headers** | ✅ | Strict HSTS preload (`max-age=63072000`), `X-Frame-Options`, `Permissions-Policy` in [vercel.json](vercel.json). |
+| **5** | **Cookie Consent Banner** | ✅ | Floating glassmorphism banner with persistent `localStorage` memory and opt-out controls. |
+| **6** | **Meta Titles & Descriptions** | ✅ | Comprehensive SEO meta headers, canonical links, and OpenGraph cards across all pages. |
+| **7** | **Social Preview Image** | ✅ | High-resolution branded social card `public/og-image.jpg` linked via `og:image`. |
+| **8** | **Favicon & Web Manifest** | ✅ | Scalable vector crest [public/favicon.svg](public/favicon.svg) and PWA [public/site.webmanifest](public/site.webmanifest). |
+| **9** | **Sitemap & robots.txt** | ✅ | Automated sitemap index [public/sitemap.xml](public/sitemap.xml) and search crawler directives in [public/robots.txt](public/robots.txt). |
+| **10** | **Alt Text on All Images** | ✅ | Descriptive, contextual `alt` attributes across every diagram and media showcase. |
+| **11** | **Image Optimization** | ✅ | WebP sequential frames, compressed assets, zero raw git bloat. |
+| **12** | **Page Load Speed** | ✅ | Progressive 3.8s anticipation interpolation with WebP preloading and async decoders. |
+| **13** | **WCAG AA Contrast** | ✅ | High-contrast gold/charcoal palette (4.5:1+ to 7:1+) with custom `:focus-visible` styling. |
+| **14** | **Mobile Friendly** | ✅ | 2-column frosted glass mobile cards, clamp viewport typography, >= 44px touch targets. |
+| **15** | **Custom 404 Page** | ✅ | Architectural sanctuary [404.html](404.html) with return routes to home and cinema. |
+| **16** | **Zero Broken Links** | ✅ | All internal anchors (`#hero`, `#showcase`, `#philosophy`, `#performance`) verified. |
+| **17** | **Form Validation** | ✅ | Client-side regex checking on name, email, phone, and region with accessible error states. |
+| **18** | **Spam & Bot Mitigation** | ✅ | Invisible honeypot trap, minimum human interaction timer, and 30s cooldown limiter. |
+| **19** | **Privacy Analytics** | ✅ | Custom event telemetry in [analytics.js](analytics.js) tracking pageviews, tabs, and conversions. |
+| **20** | **Clear Call to Action** | ✅ | Prominent "Reserve GT" header dock, hero CTA, specs CTA, and footer reservation triggers. |
 
 ---
 
@@ -47,20 +95,21 @@ All 20 essential pre-launch requirements have been meticulously audited and engi
 zen-car/
 ├── .env.example              # Environment variables template
 ├── .gitignore                # Production ignore rules (excludes zips, node_modules, dist)
-├── 404.html                  # Custom 404 error page
+├── 404.html                  # Custom 404 error sanctuary
 ├── full-video.html           # Fullscreen cinematic audio-visual drive
-├── full-video.js             # Immersion video controller & camera angle switcher
+├── full-video.js             # Immersion video controller & angle switcher
 ├── index.html                # Main experience & scrollytelling canvas
-├── main.js                   # Core application logic, LERP scrollytelling, form modal
+├── main.js                   # Application logic, LERP scrollytelling, reservation modal
 ├── analytics.js              # Privacy-friendly event tracking & telemetry
-├── package.json              # Scripts and build configuration
+├── package.json              # NPM scripts and build configuration
 ├── privacy.html              # GDPR/CCPA Privacy Policy
-├── style.css                 # Design system, glassmorphism, responsive queries
+├── style.css                 # Design system, glassmorphism, responsive architecture
 ├── terms.html                # Terms & Conditions
 ├── vercel.json               # Vercel deployment settings & HSTS security headers
 ├── vite.config.js            # Multi-page Vite production rollup configuration
+├── LICENSE                   # MIT License
 │
-├── public/                   # Static production assets (served directly)
+├── public/                   # Static production assets
 │   ├── favicon.svg           # Scalable vector favicon
 │   ├── site.webmanifest      # PWA application manifest
 │   ├── robots.txt            # Search engine directives
@@ -84,7 +133,7 @@ zen-car/
 ### 2. Installation
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/zen-car.git
+git clone https://github.com/hackerstudent29/zen-car.git
 
 # Navigate into the project
 cd zen-car
@@ -101,70 +150,38 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
-## 🚀 Building & Production Preview
+## 🚀 Building for Production
 
-### 1. Build for Production
 ```bash
 npm run build
 ```
-This generates an optimized, tree-shaken, and minified production build in the `dist/` directory including all 5 HTML entry points:
+Generates an optimized, tree-shaken, and minified production build in the `dist/` directory including all 5 HTML entry points:
 - `dist/index.html`
 - `dist/full-video.html`
 - `dist/privacy.html`
 - `dist/terms.html`
 - `dist/404.html`
 
-### 2. Preview the Production Build Locally
+Preview the build locally:
 ```bash
 npm run preview
 ```
-Open [http://localhost:4173](http://localhost:4173) to test the exact production bundle.
 
 ---
 
-## ☁️ Deploy to Vercel
+## ☁️ Deployment
 
-This repository is **100% Vercel-ready** out of the box with zero additional configuration required.
+This repository is optimized for one-click deployment on **Vercel**:
+- **Framework Preset**: Vite
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
 
-### Option A: Via Vercel Web Dashboard (Recommended)
-1. Push your repository to **GitHub**, **GitLab**, or **Bitbucket**.
-2. Go to [vercel.com/new](https://vercel.com/new).
-3. Import the `zen-car` repository.
-4. Vercel automatically detects Vite:
-   - **Framework Preset**: Vite
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-5. Click **Deploy**.
-
-### Option B: Via Vercel CLI
-```bash
-# Install Vercel CLI globally
-npm i -g vercel
-
-# Deploy directly from terminal
-vercel
-```
-
----
-
-## 🎨 Key Features & Interactions
-
-1. **Scrollytelling Canvas Engine**: 120 high-fidelity frames rendered through an HTML5 canvas with a Linear Interpolation (LERP) loop for 60fps scrolling smoothness.
-2. **Interactive GT Anatomy Dashboard**: Real-time HUD status monitors, acoustic decibel readings, and dynamic 3D cursor tilt effects.
-3. **Audio-Visual Fullscreen Experience**: Accessible via `/full-video.html` with camera angle toggling and high-bitrate spatial sound design.
-4. **Zen Mode Meditation Sanctuary**: Fullscreen dark gradient overlay featuring rotating philosophical quotes and subtle breathing animation.
-5. **Priority Allocation Flow**: Interactive reservation modal with real-time field validation, spam protection, and unique allocation certificate issuance.
-
----
-
-## 🔒 Security & Privacy
-
-- **HSTS Preload**: Forces HTTPS encryption across all subdomains.
-- **Zero Third-Party Tracking**: No intrusive ad networks, zero cookies without user consent.
-- **Bot Mitigation**: Multi-layer honeypot and interaction timestamp verification.
+Live production instance: **[zen-car-eta.vercel.app](https://zen-car-eta.vercel.app)**
 
 ---
 
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` for more information. Built for discerning minds by ZEN Automotive Corporation.
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+Crafted with tranquility by **[hackerstudent29](https://github.com/hackerstudent29)** for **ZEN Automotive Corporation**.
