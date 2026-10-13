@@ -31,59 +31,129 @@ function setupScrollytelling() {
   const loaderText = document.getElementById('loader-text');
 
   const totalFrames = 120;
-  const images = [];
+  // Critical buffer: 16 frames in WebP (~1 MB) to initiate scrollytelling in under 1.5s
+  const CRITICAL_BUFFER = 16;
+  const images = new Array(totalFrames);
   let loadedCount = 0;
+  let criticalLoadedCount = 0;
+  let isLoaderDismissed = false;
+  let isInitialized = false;
   
   let currentFrameIndex = 0;
   let targetFrameIndex = 0;
   let scrollProgress = 0;
+  let lastDrawnIndex = -1;
 
-  // Preload all frames
-  for (let i = 1; i <= totalFrames; i++) {
-    const img = new Image();
-    const frameNum = String(i).padStart(4, '0');
-    img.src = `/opening_shot_frames/frames/${frameNum}.jpg`;
-    
-    img.onload = onFrameLoad;
-    img.onerror = onFrameError;
-    images.push(img);
-  }
-
-  function onFrameLoad() {
+  function onFrameLoad(index) {
     loadedCount++;
-    updateLoader();
+    if (index < CRITICAL_BUFFER) {
+      criticalLoadedCount++;
+    }
+
+    // As soon as the opening hero frame arrives, draw it to populate the canvas
+    if (index === 0 && !isInitialized) {
+      resizeCanvas();
+    }
+
+    updateLoaderProgress();
   }
 
-  function onFrameError(e) {
-    console.error('Failed to load frame:', e.target.src);
-    // Continue loading process anyway so page isn't blocked
-    loadedCount++;
-    updateLoader();
+  function onFrameError(index, e) {
+    console.warn(`Frame ${index + 1} WebP failed, attempting JPEG fallback`, e?.target?.src);
+    const fallbackImg = new Image();
+    const frameNum = String(index + 1).padStart(4, '0');
+    fallbackImg.src = `/opening_shot_frames/frames/${frameNum}.jpg`;
+    fallbackImg.onload = () => {
+      images[index] = fallbackImg;
+      onFrameLoad(index);
+    };
+    fallbackImg.onerror = () => {
+      loadedCount++;
+      if (index < CRITICAL_BUFFER) criticalLoadedCount++;
+      updateLoaderProgress();
+    };
   }
 
-  function updateLoader() {
-    const percent = Math.round((loadedCount / totalFrames) * 100);
-    if (loaderBar) loaderBar.style.width = `${percent}%`;
-    if (loaderText) loaderText.textContent = `Waking sanctuary... ${percent}%`;
+  function updateLoaderProgress() {
+    if (isLoaderDismissed) return;
 
-    if (loadedCount >= totalFrames) {
-      setTimeout(() => {
-        if (loader) loader.classList.add('hidden');
-        initializeScrolly();
-      }, 500); // Muted delay for visual grace
+    const progressPercent = Math.min(100, Math.round((criticalLoadedCount / CRITICAL_BUFFER) * 100));
+    if (loaderBar) loaderBar.style.width = `${progressPercent}%`;
+    if (loaderText) loaderText.textContent = `Waking sanctuary... ${progressPercent}%`;
+
+    if (criticalLoadedCount >= CRITICAL_BUFFER) {
+      dismissLoader();
     }
   }
 
+  function dismissLoader() {
+    if (isLoaderDismissed) return;
+    isLoaderDismissed = true;
+
+    if (loaderBar) loaderBar.style.width = '100%';
+    if (loaderText) loaderText.textContent = 'Sanctuary ready';
+
+    setTimeout(() => {
+      if (loader) loader.classList.add('hidden');
+      initializeScrolly();
+    }, 300);
+  }
+
+  // Safety fallback: Under no circumstances should the loader trap the user for > 2.8s
+  const safetyTimeout = setTimeout(() => {
+    if (!isLoaderDismissed) {
+      dismissLoader();
+    }
+  }, 2800);
+
+  function loadFrame(i) {
+    if (images[i]) return;
+    const img = new Image();
+    const frameNum = String(i + 1).padStart(4, '0');
+    img.src = `/opening_shot_frames/webp/${frameNum}.webp`;
+    img.onload = () => onFrameLoad(i);
+    img.onerror = (e) => onFrameError(i, e);
+    images[i] = img;
+  }
+
+  // Phase 1: Immediately load Critical Buffer (frames 0 to 15)
+  for (let i = 0; i < CRITICAL_BUFFER; i++) {
+    loadFrame(i);
+  }
+
+  // Phase 2: Stream remaining frames in background asynchronously via small micro-batches
+  setTimeout(() => {
+    let nextFrame = CRITICAL_BUFFER;
+    const batchSize = 6;
+    
+    function loadNextBatch() {
+      if (nextFrame >= totalFrames) return;
+      const end = Math.min(totalFrames, nextFrame + batchSize);
+      for (let j = nextFrame; j < end; j++) {
+        loadFrame(j);
+      }
+      nextFrame = end;
+      if (nextFrame < totalFrames) {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadNextBatch, { timeout: 200 });
+        } else {
+          setTimeout(loadNextBatch, 80);
+        }
+      }
+    }
+    loadNextBatch();
+  }, 100);
+
   function initializeScrolly() {
-    // Perform initial resize
+    if (isInitialized) return;
+    isInitialized = true;
+    clearTimeout(safetyTimeout);
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Run first scroll check
     handleScroll();
-    
-    // Start interpolation render loop
     requestAnimationFrame(renderLoop);
   }
 
@@ -93,19 +163,35 @@ function setupScrollytelling() {
     canvas.height = window.innerHeight * dpr;
     ctx.scale(dpr, dpr);
     
-    // Immediately draw current interpolated frame
     drawFrame(Math.round(currentFrameIndex));
   }
 
   function drawFrame(index) {
-    const img = images[index];
-    if (!img || !img.complete) return;
+    let img = images[index];
+
+    // Nearest-neighbor fallback: Smoothly draw closest loaded frame during fast scrolling
+    if (!img || !img.complete || img.naturalWidth === 0) {
+      for (let offset = 1; offset < totalFrames; offset++) {
+        const prev = index - offset;
+        if (prev >= 0 && images[prev]?.complete && images[prev].naturalWidth > 0) {
+          img = images[prev];
+          break;
+        }
+        const next = index + offset;
+        if (next < totalFrames && images[next]?.complete && images[next].naturalWidth > 0) {
+          img = images[next];
+          break;
+        }
+      }
+    }
+
+    if (!img || !img.complete || img.naturalWidth === 0) return;
 
     const canvasWidth = document.documentElement.clientWidth;
     const canvasHeight = window.innerHeight;
 
-    const imgWidth = img.width;
-    const imgHeight = img.height;
+    const imgWidth = img.naturalWidth || img.width;
+    const imgHeight = img.naturalHeight || img.height;
 
     // Cover calculation (object-fit: cover for canvas)
     const imgRatio = imgWidth / imgHeight;
@@ -166,8 +252,6 @@ function setupScrollytelling() {
       }
     });
   }
-
-  let lastDrawnIndex = -1;
 
   function renderLoop() {
     // Linear Interpolation (LERP) for buttery-smooth scrolling updates
