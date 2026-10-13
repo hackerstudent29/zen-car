@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZEN GT | Full Cinematic Video Experience</title>
+    <meta name="description" content="Immerse yourself in the sound and motion of the ZEN GT. A complete audio-visual journey into automotive tranquility." />
+    <meta name="theme-color" content="#0d0d0c" />
+    
+    <!-- Open Graph & Twitter -->
+    <meta property="og:type" content="video.other" />
+    <meta property="og:title" content="ZEN GT | Full Cinematic Video Experience" />
+    <meta property="og:description" content="Immerse yourself in the sound and motion of the ZEN GT." />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:url" content="https://zen-car.vercel.app/full-video.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ZEN GT | Full Cinematic Video Experience" />
+    <meta name="twitter:image" content="/og-image.jpg" />
+
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="stylesheet" href="/style.css">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #0d0d0c;
+        overflow: hidden; /* Hide scrollbars for full screen video */
+      }
+      #video-canvas {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        display: block;
+      }
+      .back-btn {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-family: var(--font-subheading-medium);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.8rem;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+      .enter-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #0d0d0c;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 500;
+        cursor: pointer;
+        transition: opacity 0.5s;
+      }
+      .enter-text {
+        color: white;
+        font-family: var(--font-subheading-medium);
+        letter-spacing: 0.2em;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        padding: 1rem 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        transition: 0.3s;
+      }
+      .enter-text:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .video-switcher {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 1000;
+        display: flex;
+        gap: 0.5rem;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 0.4rem;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .vid-btn {
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.6);
+        padding: 0.6rem 1.2rem;
+        border-radius: 50px;
+        font-family: var(--font-subheading-medium);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .vid-btn:hover {
+        color: white;
+      }
+      .vid-btn.active {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+      @media (max-width: 768px) {
+        .back-btn {
+          top: 1rem;
+          left: 1rem;
+          padding: 0.6rem 1.1rem;
+          font-size: 0.75rem;
+        }
+        .video-switcher {
+          bottom: 1.5rem;
+          right: 1rem;
+          left: 1rem;
+          justify-content: center;
+        }
+        .enter-text {
+          font-size: 0.95rem;
+          padding: 0.8rem 1.4rem;
+          text-align: center;
+          margin: 0 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/" class="back-btn" aria-label="Return to Sanctuary Home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back to Sanctuary
+    </a>
+    
+    <div id="enter-overlay" class="enter-overlay" role="button" aria-label="Start Video Experience with Audio">
+      <div class="enter-text">Start Experience (Sound On)</div>
+    </div>
+    
+    <div class="video-switcher" role="group" aria-label="Video camera view switcher">
+      <button class="vid-btn active" data-vid="/antigravity images/car model video with song.mp4">Cinematic</button>
+      <button class="vid-btn" data-vid="/antigravity images/car drift shot in city road.mp4">City Drift</button>
+    </div>
+    
+    <video id="full-video" loop playsinline style="width: 100vw; height: 100vh; object-fit: cover; display: block;">
+      <source src="/antigravity images/car model video with song.mp4" type="video/mp4">
+    </video>
+    
+    <script type="module" src="/full-video.js"></script>
+  </body>
+</html>

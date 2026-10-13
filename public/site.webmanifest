@@ -1,0 +1,17 @@
+{
+  "name": "ZEN GT - Mindful Automotive Sanctuary",
+  "short_name": "ZEN GT",
+  "description": "A study in automotive minimalism and high-performance tranquility.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0c",
+  "theme_color": "#0d0d0c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

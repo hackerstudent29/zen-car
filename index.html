@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>ZEN CAR | The Art of Mindful Driving & High-Performance Sanctuary</title>
+  <meta name="title" content="ZEN CAR | The Art of Mindful Driving & High-Performance Sanctuary">
+  <meta name="description" content="Zen Car - A study in automotive minimalism, whisper acoustics, and high-performance tranquility. Experience the electric GT hypercar designed for mindful drivers.">
+  <meta name="keywords" content="Zen Car, ZEN GT, electric hypercar, minimalist automotive, quiet luxury supercar, scrollytelling vehicle, high performance electric GT">
+  <meta name="author" content="ZEN Automotive Corporation">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0d0d0c">
+  <link rel="canonical" href="https://zen-car.vercel.app/">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zen-car.vercel.app/">
+  <meta property="og:title" content="ZEN CAR | The Art of Mindful Driving">
+  <meta property="og:description" content="A study in automotive minimalism and high-performance tranquility. Crafted with White Yellow palette and whisper acoustics.">
+  <meta property="og:image" content="/og-image.jpg">
+  <meta property="og:site_name" content="ZEN Automotive">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://zen-car.vercel.app/">
+  <meta name="twitter:title" content="ZEN CAR | The Art of Mindful Driving">
+  <meta name="twitter:description" content="A study in automotive minimalism and high-performance tranquility. Pure form. Pure mind.">
+  <meta name="twitter:image" content="/og-image.jpg">
+
+  <!-- Favicon & Web Manifest -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Performance Optimizations & Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  
+  <!-- Subtle Grain Overlay for Premium Feel -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Scrollytelling Preloader -->
+  <div class="scrolly-loader" role="status" aria-live="polite">
+    <div class="loader-content">
+      <span class="loader-logo">ZEN</span>
+      <div class="loader-bar-bg"><div class="loader-bar" id="loader-bar"></div></div>
+      <span class="loader-text" id="loader-text">Waking sanctuary... 0%</span>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <a href="#hero" class="logo" aria-label="ZEN Automotive Home">
+      <span class="logo-text">ZEN</span>
+    </a>
+    
+    <nav class="nav" aria-label="Main Navigation">
+      <a href="#hero" class="nav-link" aria-label="Navigate to Home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </a>
+      <a href="#showcase" class="nav-link" aria-label="Navigate to Showcase Anatomy">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+      </a>
+      <a href="#philosophy" class="nav-link" aria-label="Navigate to Philosophy">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+        </svg>
+      </a>
+      <a href="/full-video.html" class="nav-link" aria-label="Cinematic Video Drive">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </a>
+    </nav>
+
+    <!-- Zen Sanctuary Toggle & Primary CTA Button -->
+    <div class="header-actions">
+      <button id="zen-toggle" class="zen-mode-toggle" aria-label="Enter Zen Sanctuary Meditation Mode" title="Zen Sanctuary Mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
+        <span class="zen-toggle-text">Zen Mode</span>
+      </button>
+
+      <button class="header-cta-btn reserve-trigger" aria-label="Reserve ZEN GT Allocation">
+        Reserve GT
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Scroll Section (300vh track) -->
+  <div class="hero-scroll-container">
+    <section id="hero" class="hero-sticky-wrapper">
+      <div class="canvas-container">
+        <canvas id="hero-canvas" aria-label="Interactive frame animation of the ZEN GT hypercar"></canvas>
+        <div class="hero-overlay"></div>
+      </div>
+      
+      <!-- Scrolling Text Sequences -->
+      <div class="hero-text-layer active" data-trigger="0">
+        <h1 class="hero-title">Pure Form.<br>Pure Mind.</h1>
+        <p class="hero-subtitle">A study in automotive minimalism and high-performance tranquility.</p>
+        <div class="hero-cta-group">
+          <a href="/full-video.html" class="cta-button primary-cta" id="hero-video-cta">Experience Full Drive</a>
+          <button class="cta-button gold-cta reserve-trigger" id="hero-reserve-cta">Reserve the GT</button>
+        </div>
+      </div>
+      
+      <div class="hero-text-layer" data-trigger="1">
+        <h2 class="editorial-title">Silence Awakens.</h2>
+        <p class="editorial-desc">The garage doors dissolve, revealing a silhouette forged in tranquility.</p>
+      </div>
+
+      <div class="hero-text-layer" data-trigger="2">
+        <h2 class="editorial-title">Form Follows Mind.</h2>
+        <p class="editorial-desc">A continuous sweep of aerodynamic meditation. No noise. No excess.</p>
+      </div>
+
+      <div class="hero-text-layer" data-trigger="3">
+        <h2 class="editorial-title">Behold the ZEN GT.</h2>
+        <p class="editorial-desc">An electric sanctuary engineered for the thoughtful traveler.</p>
+        <div class="hero-cta-group" style="margin-top: 2rem;">
+          <a href="#showcase" class="cta-button primary-cta">Explore the GT Anatomy</a>
+          <button class="cta-button gold-cta reserve-trigger">Claim Allocation</button>
+        </div>
+      </div>
+
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">Scroll to play sequence</span>
+      </div>
+    </section>
+  </div>
+
+  <!-- Interactive Showcase Dashboard -->
+  <section id="showcase" class="showcase-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker-tag">ENGINEERING HARMONY</span>
+        <h2 class="section-title">The ZEN GT Anatomy</h2>
+        <p class="section-description">Interact with the core components of the ZEN GT. Observe the perfect balance of raw power and silent precision.</p>
+      </div>
+
+      <div class="showcase-dashboard">
+        <!-- Interactive Tabs Navigation -->
+        <div class="dashboard-tabs" role="tablist" aria-label="Vehicle Components">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-target="motion" data-video="/antigravity images/car drift shot.mp4" data-fallback="/antigravity images/car image1.jpeg">
+            <span class="tab-num">01</span>
+            <span class="tab-name">Pure Motion</span>
+            <span class="tab-desc">Dynamic balance in action</span>
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="interior" data-video="/antigravity images/car transition from seats to nitro.mp4" data-fallback="/antigravity images/car focused on seats.png">
+            <span class="tab-num">02</span>
+            <span class="tab-name">Sanctuary & Power</span>
+            <span class="tab-desc">Premium luxury meets raw nitro exhaust</span>
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="engine" data-video="/antigravity images/engine reveal.mp4" data-fallback="/antigravity images/car engine.png">
+            <span class="tab-num">03</span>
+            <span class="tab-name">The Heart</span>
+            <span class="tab-desc">Whispering acoustic engineering</span>
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="tyre" data-video="/antigravity images/car tyre focusing shot.mp4" data-fallback="/antigravity images/car tyre focused.png">
+            <span class="tab-num">04</span>
+            <span class="tab-name">Contact Patch</span>
+            <span class="tab-desc">Adhesion meets road feel</span>
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="garage" data-video="/antigravity images/car garage transformation.mp4" data-fallback="/antigravity images/car image in garage with light on.png">
+            <span class="tab-num">05</span>
+            <span class="tab-name">The Sanctuary</span>
+            <span class="tab-desc">The birthplace of detail</span>
+          </button>
+        </div>
+
+        <!-- Video Canvas Display -->
+        <div class="dashboard-canvas">
+          <div class="canvas-wrapper">
+            <!-- Futuristic targeting brackets/grid -->
+            <div class="canvas-grid-overlay"></div>
+            <div class="hud-corner-bracket top-left-bracket"></div>
+            <div class="hud-corner-bracket top-right-bracket"></div>
+            <div class="hud-corner-bracket bottom-left-bracket"></div>
+            <div class="hud-corner-bracket bottom-right-bracket"></div>
+            <div class="laser-scanner"></div>
+
+            <video id="canvas-video" autoplay loop muted playsinline class="canvas-media">
+              <source src="/antigravity images/car drift shot.mp4" type="video/mp4">
+            </video>
+            <img id="canvas-fallback" src="/antigravity images/car image1.jpeg" alt="ZEN GT dynamic motion and aerodynamic track profile" class="canvas-media-fallback hidden" loading="lazy">
+            
+            <!-- Technical Overlay HUD -->
+            <div class="canvas-hud">
+              <div class="hud-item top-left">
+                <span class="hud-label">MODEL</span>
+                <span class="hud-val">ZEN GT-1</span>
+              </div>
+              <div class="hud-item top-right">
+                <span class="hud-label">STATUS</span>
+                <span class="hud-val pulse-green">STANDBY</span>
+              </div>
+              <div class="hud-item bottom-left">
+                <span class="hud-label">POWERTRAIN</span>
+                <span class="hud-val">DUAL SILENT FLUID MOTOR</span>
+              </div>
+              <div class="hud-item bottom-right">
+                <span class="hud-label">BALANCE Ratio</span>
+                <span class="hud-val">50:50 ZERO-SHIFT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specs Table -->
+      <div class="specs-container">
+        <h3 class="specs-title">Technical Specifications</h3>
+        <div class="specs-grid">
+          <div class="spec-card">
+            <span class="spec-label">Silent Propulsion</span>
+            <span class="spec-value">750 hp equivalent</span>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">Acoustics</span>
+            <span class="spec-value">12 dB Cabin ISO</span>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">Range</span>
+            <span class="spec-value">620 km</span>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">Acceleration</span>
+            <span class="spec-value">0-100 km/h in 2.8s</span>
+          </div>
+        </div>
+
+        <div class="specs-cta-wrapper">
+          <button class="cta-button primary-cta reserve-trigger">
+            Reserve This Specification
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy / Zen Art Section (Scrollytelling) -->
+  <section id="philosophy" class="philosophy-scrollytelling">
+    <div class="philosophy-sticky-container">
+      <!-- Background Video Layers -->
+      <video id="phil-vid-1" class="phil-video active" autoplay loop muted playsinline>
+        <source src="/antigravity images/car driving on street with zoomout.mp4" type="video/mp4">
+      </video>
+      <video id="phil-vid-2" class="phil-video" autoplay loop muted playsinline>
+        <source src="/antigravity images/car transition from steering to hero pose.mp4" type="video/mp4">
+      </video>
+      <video id="phil-vid-3" class="phil-video" autoplay loop muted playsinline>
+        <source src="/antigravity images/car garage transformation.mp4" type="video/mp4">
+      </video>
+      <div class="phil-overlay"></div>
+    </div>
+
+    <!-- Scrolling Text Cards -->
+    <div class="philosophy-scroll-content">
+      <div class="phil-card-wrapper" data-vid="1">
+        <div class="phil-card">
+          <span class="kicker">PHILOSOPHY</span>
+          <h2>Rooted in Ancient Tranquility</h2>
+          <p>In a world of noise, distraction, and excess, we choose clarity. The ZEN GT is designed to strip away the superfluous.</p>
+        </div>
+      </div>
+      <div class="phil-card-wrapper" data-vid="2">
+        <div class="phil-card">
+          <span class="kicker">FOCUS</span>
+          <h2>Forged in the Fires of Focus</h2>
+          <p>No flashing screens, no aggressive lines, no artificial sounds. Only pure connection between road, machine, and mind.</p>
+        </div>
+      </div>
+      <div class="phil-card-wrapper" data-vid="3">
+        <div class="phil-card">
+          <span class="kicker">HARMONY</span>
+          <h2>Where Engineering Meets the Soul</h2>
+          <p>"The designer knows he has achieved perfection not when there is nothing left to add, but when there is nothing left to take away."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance Grid (Parallax Hover Image Gallery) -->
+  <section id="performance" class="performance-grid-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker-tag">GALLERY ARCHITECTURE</span>
+        <h2 class="section-title">Form & Function</h2>
+      </div>
+      <div class="masonry-grid">
+        <div class="masonry-item large">
+          <img src="/antigravity images/car hero pose top side angle 2.png" alt="ZEN GT high-angle front quarter exterior silhouette" loading="lazy" decoding="async">
+        </div>
+        <div class="masonry-item medium">
+          <img src="/antigravity images/car nitro focused.png" alt="ZEN GT dual titanium performance exhaust and thermal diffuser" loading="lazy" decoding="async">
+        </div>
+        <div class="masonry-item small">
+          <img src="/antigravity images/car tyre focused.png" alt="ZEN GT forged lightweight aerodynamic alloy wheel and track tire" loading="lazy" decoding="async">
+        </div>
+        <div class="masonry-item wide">
+          <img src="/antigravity images/engine image.png" alt="ZEN GT liquid-cooled silent dual-motor high-efficiency powertrain" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Grand Finale Cinematic -->
+  <section id="finale" class="finale-section">
+    <video class="finale-video" autoplay loop muted playsinline>
+      <source src="/antigravity images/car drift shot in city road.mp4" type="video/mp4">
+    </video>
+    <div class="finale-overlay">
+      <h2 class="finale-title">Command the Silence.</h2>
+      <button class="cta-button primary-cta reserve-btn reserve-trigger">Reserve the GT</button>
+    </div>
+  </section>
+
+  <!-- Fullscreen Ambient Zen Sanctuary Overlay (triggered by Zen Mode) -->
+  <div id="zen-sanctuary" class="zen-sanctuary-overlay hidden" role="dialog" aria-modal="true" aria-label="Zen Meditation Sanctuary">
+    <div class="zen-sanctuary-content">
+      <div class="rose-container">
+        <img src="/antigravity images/car top side angle hero pose.png" alt="ZEN GT sanctuary ambient visualization in stillness" class="zenify-rose">
+      </div>
+      <div class="zen-quote-container">
+        <p class="zen-quote" id="zen-quote">Breathe in. Let go of the noise.</p>
+        <span class="zen-author" id="zen-author">Zen Philosophy</span>
+      </div>
+      <button class="exit-zen-btn" id="exit-zen" aria-label="Close Zen Mode and return to main experience">Return to Reality</button>
+    </div>
+  </div>
+
+  <!-- Interactive Reservation Modal -->
+  <div id="reservation-modal" class="modal-overlay hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="close-reservation" aria-label="Close Reservation Modal">&times;</button>
+      
+      <div id="reservation-form-container">
+        <span class="modal-kicker">2026 Production Queue</span>
+        <h2 id="modal-title" class="modal-title">Reserve Your ZEN GT</h2>
+        <p class="modal-subtitle">Limited allocation slots. Escrow-secured with a 100% refundable reservation deposit.</p>
+        
+        <form id="reservation-form" novalidate>
+          <!-- Spam / Bot Honeypot Trap Field -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="zen_hp_trap">Leave empty</label>
+            <input type="text" id="zen_hp_trap" name="_zen_hp_trap" tabindex="-1" autocomplete="off">
+          </div>
+          
+          <div class="form-group">
+            <label for="res-name" class="form-label">Full Name <span class="req">*</span></label>
+            <input type="text" id="res-name" name="name" class="form-input" placeholder="e.g. Kenzo Murakami" required autocomplete="name">
+            <span class="form-error" id="name-error">Please enter your full name (minimum 2 characters).</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-email" class="form-label">Email Address <span class="req">*</span></label>
+              <input type="email" id="res-email" name="email" class="form-input" placeholder="sanctuary@domain.com" required autocomplete="email">
+              <span class="form-error" id="email-error">Please provide a valid email address.</span>
+            </div>
+            
+            <div class="form-group">
+              <label for="res-phone" class="form-label">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="res-phone" name="phone" class="form-input" placeholder="+1 (555) 019-2834" required autocomplete="tel">
+              <span class="form-error" id="phone-error">Please provide a valid contact phone number.</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-model" class="form-label">Chassis Specification</label>
+              <select id="res-model" name="model" class="form-select">
+                <option value="ZEN GT-1 Launch Edition">ZEN GT-1 Launch Edition (Dual Motor / 750 hp)</option>
+                <option value="ZEN GT-P Track Performance">ZEN GT-P Track Performance (Acoustic Titanium)</option>
+                <option value="ZEN GT-Sanctuary Mindful">ZEN GT-Sanctuary (Whisper Cabin 12 dB)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="res-timeline" class="form-label">Target Delivery Period</label>
+              <select id="res-timeline" name="timeline" class="form-select">
+                <option value="2026 Q4 Founding Allocation">2026 Q4 (Founding Allocation)</option>
+                <option value="2027 Q1 Phase II Build">2027 Q1 (Phase II Build)</option>
+                <option value="2027 Q2 Global Dispatch">2027 Q2 (Global Dispatch)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label" for="res-consent">
+              <input type="checkbox" id="res-consent" name="consent" required>
+              <span class="checkbox-custom"></span>
+              <span class="checkbox-text">I acknowledge this reservation request is processed according to the <a href="/terms.html" target="_blank" rel="noopener">Terms</a> and protected under the <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+            </label>
+            <span class="form-error" id="consent-error">You must accept the terms to request an allocation.</span>
+          </div>
+
+          <button type="submit" class="cta-button primary-cta form-submit-btn" id="submit-reservation">
+            <span class="btn-text">Confirm Allocation Request</span>
+            <span class="btn-spinner hidden" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Success Confirmation State -->
+      <div id="reservation-success" class="reservation-success hidden">
+        <div class="success-icon" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <span class="modal-kicker">Sanctuary Allocation Confirmed</span>
+        <h3 class="success-title">Your Priority Slot is Reserved</h3>
+        <p class="success-desc">An executive concierge dispatch has been registered. Your encrypted allocation credentials and build confirmation have been dispatched to your email.</p>
+        <div class="reservation-badge">
+          <span class="badge-label">ALLOCATION REFERENCE ID</span>
+          <span class="badge-code" id="success-ref-code">ZEN-GT-2026-0842</span>
+        </div>
+        <button class="cta-button secondary-cta" id="close-success-btn">Return to Sanctuary</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Consent Banner -->
+  <aside id="cookie-banner" class="cookie-banner hidden" role="region" aria-label="Cookie and Privacy Consent">
+    <div class="cookie-content">
+      <div class="cookie-text-wrapper">
+        <span class="cookie-title">Mindful Privacy & Telemetry</span>
+        <p class="cookie-desc">We respect your sanctuary. ZEN uses minimal telemetry to ensure seamless canvas rendering and respects your choice. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-accept" class="cookie-btn cookie-btn-accept">Accept All</button>
+        <button id="cookie-decline" class="cookie-btn cookie-btn-decline">Essential Only</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">ZEN</span>
+        <p class="footer-tagline">A study in automotive minimalism and high-performance tranquility.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-col">
+          <span class="footer-col-title">Navigation</span>
+          <a href="#hero">Overview</a>
+          <a href="#showcase">GT Anatomy</a>
+          <a href="#philosophy">Philosophy</a>
+          <a href="#performance">Form & Function</a>
+          <a href="/full-video.html">Full Cinematic Video</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-title">Allocation</span>
+          <a href="#" class="reserve-trigger">Reserve ZEN GT</a>
+          <a href="/sitemap.xml">Sitemap.xml</a>
+          <a href="/robots.txt">Robots.txt</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-title">Governance</span>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms & Conditions</a>
+          <a href="mailto:concierge@zenautomotive.com">Concierge Support</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 ZEN Automotive Corporation. All rights reserved.</p>
+        <div class="footer-badges">
+          <span class="badge-chip">TLS 1.3 ENCRYPTED</span>
+          <span class="badge-chip">PRIVACY FIRST</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js" type="module"></script>
+</body>
+</html>

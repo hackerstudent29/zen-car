@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="zenGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5D5B8" />
+      <stop offset="50%" stop-color="#C8A97E" />
+      <stop offset="100%" stop-color="#8D6F4B" />
+    </linearGradient>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1A1917" />
+      <stop offset="100%" stop-color="#090908" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Outer Rounded Shield -->
+  <rect x="4" y="4" width="120" height="120" rx="32" fill="url(#bgGlow)" stroke="url(#zenGold)" stroke-width="3" />
+  
+  <!-- Sleek Aerodynamic Silhouette Curves (ZEN Crest) -->
+  <path d="M 28 42 C 48 34, 80 34, 100 42 C 92 50, 78 54, 64 54 C 50 54, 36 50, 28 42 Z" fill="url(#zenGold)" opacity="0.9" />
+  <path d="M 24 64 C 44 58, 84 58, 104 64 C 96 74, 76 80, 64 80 C 52 80, 32 74, 24 64 Z" fill="none" stroke="url(#zenGold)" stroke-width="4" stroke-linecap="round" />
+  <circle cx="64" cy="64" r="8" fill="url(#zenGold)" />
+  <line x1="64" y1="84" x2="64" y2="100" stroke="url(#zenGold)" stroke-width="3" stroke-linecap="round" />
+</svg>
