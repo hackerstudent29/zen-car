@@ -89,7 +89,7 @@ a {
   padding: 0 2.5rem;
 }
 
-/* --- Floating Minimalist Icon Dock Header (Pure Icons, Zero Words) --- */
+/* --- Floating Minimalist Glassmorphism Icon Dock (Pure Icons, Zero Words) --- */
 .header {
   position: fixed;
   top: 1.5rem;
@@ -102,24 +102,26 @@ a {
   justify-content: center;
   padding: 0.45rem 0.85rem;
   z-index: 1000;
-  color: #FFFFFF;
   
-  /* High-Contrast Luxury Glass Capsule */
-  background: rgba(14, 13, 12, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  /* Authentic Frosted Glassmorphism Capsule */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 
-    0 10px 32px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
   transition: var(--transition-smooth);
 }
 
 .header.scrolled {
-  background: rgba(10, 9, 8, 0.95);
-  border-color: rgba(166, 134, 94, 0.3);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 12px 36px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .dock-nav {
@@ -135,22 +137,20 @@ a {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  color: rgba(255, 255, 255, 0.7);
+  color: #FFFFFF;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
 }
 
 .dock-link:hover {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.12);
+  color: var(--accent-gold);
+  background: rgba(255, 255, 255, 0.22);
   transform: translateY(-2px) scale(1.1);
-}
-
-.dock-link:hover svg {
-  stroke: var(--accent-gold);
+  filter: drop-shadow(0 2px 8px rgba(166, 134, 94, 0.7));
 }
 
 .dock-link:active {
@@ -159,13 +159,14 @@ a {
 
 .dock-link svg {
   display: block;
+  stroke: currentColor;
   transition: stroke 0.25s ease;
 }
 
 .dock-divider {
   width: 1px;
   height: 18px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.35);
   margin: 0 0.15rem;
 }
 
@@ -1949,7 +1950,7 @@ body.zen-active {
     scroll-margin-top: 4.5rem !important;
   }
 
-  /* Compact Floating Icon Dock (Pure Minimalist Icons Only) */
+  /* Compact Floating Glassmorphism Icon Dock (Pure Minimalist Icons Only) */
   .header {
     top: 0.65rem !important;
     width: auto !important;
@@ -1957,9 +1958,13 @@ body.zen-active {
     padding: 0.35rem 0.65rem !important;
     gap: 0 !important;
     border-radius: 40px !important;
-    background: rgba(14, 13, 12, 0.92) !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.38) !important;
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.25) !important,
+      inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
   }
 
   .dock-nav {
@@ -1969,6 +1974,7 @@ body.zen-active {
   .dock-link {
     width: 32px !important;
     height: 32px !important;
+    color: #FFFFFF !important;
   }
 
   .dock-link svg {
@@ -1979,6 +1985,7 @@ body.zen-active {
   .dock-divider {
     height: 16px !important;
     margin: 0 0.1rem !important;
+    background: rgba(255, 255, 255, 0.35) !important;
   }
 
   /* Hero Section Typography & CTA */

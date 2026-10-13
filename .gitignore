@@ -25,7 +25,8 @@ full video of the car.zip
 
 # Unused heavy media & unreferenced frame archives
 public/full_video/
-antigravity images/
+/antigravity images/
+!public/antigravity images/
 
 # Logs & Debugging
 npm-debug.log*
