@@ -236,10 +236,14 @@ function setupShowcase() {
       tab.classList.add('active');
       tab.setAttribute('aria-selected', 'true');
 
-      // Reset 3D canvas position to default
+      // Reset 3D canvas position to default on desktop only
       const canvasWrapper = document.querySelector('.canvas-wrapper');
       if (canvasWrapper) {
-        canvasWrapper.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        if (window.innerWidth > 768) {
+          canvasWrapper.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        } else {
+          canvasWrapper.style.transform = 'none';
+        }
       }
 
       const target = tab.getAttribute('data-target');
@@ -316,6 +320,7 @@ function setupShowcase() {
     if (!canvasWrapper || !container) return;
 
     container.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 768) return;
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -331,10 +336,18 @@ function setupShowcase() {
     });
 
     container.addEventListener('mouseleave', () => {
+      if (window.innerWidth <= 768) {
+        canvasWrapper.style.transform = 'none';
+        return;
+      }
       canvasWrapper.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
     });
 
     container.addEventListener('dblclick', () => {
+      if (window.innerWidth <= 768) {
+        canvasWrapper.style.transform = 'none';
+        return;
+      }
       canvasWrapper.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
     });
   }
