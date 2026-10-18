@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export const metadata = {
-  title: "404 - Route Dissolved in Silence | ZEN Automotive",
-  description: "The path you sought has dissolved in silence. Return to the ZEN GT sanctuary.",
-};
 
 export default function NotFound() {
   return (
