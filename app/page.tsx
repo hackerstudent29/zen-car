@@ -85,45 +85,37 @@ const IDEAS = [
 const GALLERY = [
   {
     id: "01",
-    tag: "Aerodynamics",
     src: `${A}car hero pose top side angle 2.png`,
-    alt: "ZEN GT front quarter silhouette",
-    t: "Profile & Aerodynamics",
-    s: "Single-piece continuous carbon composite curvature",
-    spec: "0.19 Cd · Active Flow",
+    alt: "ZEN GT profile",
+    t: "Profile",
+    s: "Carbon Contour",
     span: "md:col-span-2",
     ratio: "aspect-[4/3] md:aspect-[21/9]",
   },
   {
     id: "02",
-    tag: "Acoustics",
     src: `${A}car nitro focused.png`,
-    alt: "ZEN GT titanium exhaust and diffuser",
-    t: "Titanium Venturi Diffuser",
-    s: "Acoustic venturi balance with tuned thermal escape",
-    spec: "Grade-5 Titanium · 12 dB Floor",
+    alt: "ZEN GT diffuser",
+    t: "Diffuser",
+    s: "Titanium Flow",
     span: "",
     ratio: "aspect-[4/3]",
   },
   {
     id: "03",
-    tag: "Chassis",
     src: `${A}car tyre focused.png`,
-    alt: "ZEN GT forged alloy wheel",
-    t: "Forged Vortex Monoblock",
-    s: "Lightweight directional vortex heat evacuation",
-    spec: "21\" Forged Alloy · 1.35 G Grip",
+    alt: "ZEN GT alloy",
+    t: "Alloy",
+    s: "Vortex Monoblock",
     span: "",
     ratio: "aspect-[4/3]",
   },
   {
     id: "04",
-    tag: "Powertrain",
     src: `${A}engine image.png`,
-    alt: "ZEN GT liquid-cooled dual-motor powertrain",
-    t: "Fluid Core Powertrain",
-    s: "Dual permanent-magnet silent drive with silicon carbide",
-    spec: "750 hp · 1050 Nm Instant",
+    alt: "ZEN GT powertrain",
+    t: "Core",
+    s: "Silent Drive",
     span: "md:col-span-2",
     ratio: "aspect-[4/3] md:aspect-[21/9]",
   },
@@ -729,32 +721,14 @@ function GalleryCard({
           />
         </motion.div>
 
-        {/* Ambient Dark Sheen & Corner HUD Brackets */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30 pointer-events-none transition-opacity duration-500 group-hover:opacity-75" />
-        <div className="hud-corner top-4 left-4 border-t-2 border-l-2 opacity-50 transition-opacity duration-300 group-hover:opacity-100" />
-        <div className="hud-corner top-4 right-4 border-t-2 border-r-2 opacity-50 transition-opacity duration-300 group-hover:opacity-100" />
-        <div className="hud-corner bottom-4 left-4 border-b-2 border-l-2 opacity-50 transition-opacity duration-300 group-hover:opacity-100" />
-        <div className="hud-corner bottom-4 right-4 border-b-2 border-r-2 opacity-50 transition-opacity duration-300 group-hover:opacity-100" />
+        {/* Ambient Dark Sheen */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
-        {/* Top Badges */}
-        <div className="absolute inset-x-4 top-4 flex items-center justify-between sm:inset-x-6 sm:top-6 pointer-events-none">
-          <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[10px] uppercase font-mono tracking-wider text-[#A6865E] backdrop-blur-xl">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#A6865E]" />
-            {g.id} // {g.tag}
-          </span>
-          <span className="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 p-2 text-white/70 backdrop-blur-xl transition-all duration-300 group-hover:bg-white/25 group-hover:text-white">
-            <Maximize2 className="h-3.5 w-3.5" />
-          </span>
-        </div>
-
-        {/* Bottom Floating Glass Card */}
-        <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 sm:inset-x-6 sm:bottom-6">
-          <div className={`rounded-2xl px-4 py-3 sm:px-5 sm:py-3.5 ${GLASS_HI} max-w-sm backdrop-blur-3xl`}>
-            <div className="flex items-center justify-between gap-2 mb-1">
-              <span className={`block text-sm sm:text-base font-semibold text-white ${F_MED}`}>{g.t}</span>
-              <span className="text-[10px] font-mono text-[#A6865E] font-semibold">{g.spec}</span>
-            </div>
-            <span className={`block text-xs text-[#E6E2D8]/75 leading-relaxed ${F_BODY}`}>{g.s}</span>
+        {/* Minimal Glass Caption: One Word Title + Two Word Subtitle */}
+        <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 pointer-events-none">
+          <div className={`rounded-2xl px-4 py-2 sm:px-5 sm:py-2.5 ${GLASS_HI} backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.4)]`}>
+            <span className={`block text-sm sm:text-base font-semibold text-white ${F_MED}`}>{g.t}</span>
+            <span className={`block text-xs text-[#E6E2D8]/75 ${F_BODY}`}>{g.s}</span>
           </div>
         </div>
       </motion.div>
@@ -763,11 +737,7 @@ function GalleryCard({
 }
 
 function Gallery() {
-  const [activeTag, setActiveTag] = useState("All");
   const [inspectItem, setInspectItem] = useState<(typeof GALLERY)[number] | null>(null);
-
-  const tags = ["All", "Aerodynamics", "Acoustics", "Chassis", "Powertrain"];
-  const filtered = activeTag === "All" ? GALLERY : GALLERY.filter((g) => g.tag === activeTag);
 
   useEffect(() => {
     if (!inspectItem) return;
@@ -779,37 +749,12 @@ function Gallery() {
   return (
     <section id="gallery" className="relative bg-[#0d0d0c] px-4 py-24 sm:px-8 sm:py-36">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12 sm:mb-16">
-          <Heading kicker="Gallery" title="Form & function." sub="A visual study in aerodynamic silence." />
-          <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-xl overflow-x-auto no-scrollbar">
-            {tags.map((t) => (
-              <button
-                key={t}
-                onClick={() => setActiveTag(t)}
-                className={`relative px-3.5 py-1.5 rounded-full text-xs transition-colors duration-200 whitespace-nowrap ${F_MED} ${
-                  activeTag === t ? "text-white font-semibold" : "text-[#E6E2D8]/60 hover:text-white"
-                }`}
-              >
-                {activeTag === t && (
-                  <motion.span
-                    layoutId="galleryTag"
-                    transition={SPRING}
-                    className="absolute inset-0 rounded-full border border-white/30 bg-white/20"
-                  />
-                )}
-                <span className="relative z-10">{t}</span>
-              </button>
-            ))}
-          </div>
+        <Heading kicker="Gallery" title="Form & function." sub="A visual study in aerodynamic silence." />
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2">
+          {GALLERY.map((g, idx) => (
+            <GalleryCard key={g.id} g={g} idx={idx} onInspect={setInspectItem} />
+          ))}
         </div>
-
-        <motion.div layout className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
-          <AnimatePresence>
-            {filtered.map((g, idx) => (
-              <GalleryCard key={g.id} g={g} idx={idx} onInspect={setInspectItem} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
       </div>
 
       {/* Luxury Fullscreen Lightbox Modal */}
@@ -841,15 +786,12 @@ function Gallery() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#121211] via-transparent to-black/40" />
               </div>
-              <div className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="p-6 sm:p-8 flex items-center justify-between gap-4">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#A6865E]">
-                    {inspectItem.id} // {inspectItem.tag} // {inspectItem.spec}
-                  </span>
-                  <h3 className={`${F_HEAD} text-2xl sm:text-3xl font-bold text-white mt-1`}>
+                  <h3 className={`${F_HEAD} text-2xl sm:text-3xl font-bold text-white`}>
                     {inspectItem.t}
                   </h3>
-                  <p className={`text-xs sm:text-sm text-[#E6E2D8]/75 mt-1.5 max-w-xl ${F_BODY}`}>
+                  <p className={`text-xs sm:text-sm text-[#A6865E] mt-1 ${F_MED}`}>
                     {inspectItem.s}
                   </p>
                 </div>
