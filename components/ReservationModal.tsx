@@ -88,13 +88,13 @@ export default function ReservationModal({ isOpen, onClose }: ReservationModalPr
             className="fixed inset-0 bg-black/75 backdrop-blur-md"
           />
 
-          {/* Modal Card with Apple Spring Physics */}
+          {/* Modal Card with Apple Spring Physics & Frosted Glass */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={EASE_SPRING}
-            className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#141413]/95 border border-white/15 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.9)] text-[#F6F3E9] z-10 my-auto"
+            className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#121211]/85 border border-white/25 backdrop-blur-3xl shadow-[0_30px_70px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.35)] text-[#F6F3E9] z-10 my-auto"
           >
             {/* Close button */}
             <motion.button

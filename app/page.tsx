@@ -19,10 +19,7 @@ export default function HomePage() {
   return (
     <main className="relative min-h-screen bg-[#0d0d0c] text-[#F6F3E9]">
       {/* Floating Glassmorphic Dock Navbar */}
-      <Navbar
-        onOpenReserve={() => setIsReserveOpen(true)}
-        onOpenZen={() => setIsZenOpen(true)}
-      />
+      <Navbar />
 
       {/* Hero 120-Frame Canvas Scrollytelling */}
       <HeroScrollytelling onOpenReserve={() => setIsReserveOpen(true)} />

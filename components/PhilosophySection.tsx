@@ -61,7 +61,7 @@ export default function PhilosophySection() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -25, scale: 0.97 }}
               transition={EASE_SPRING}
-              className="max-w-lg w-full p-8 sm:p-12 rounded-3xl bg-[#0d0d0c]/75 border border-white/15 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] text-center"
+              className="max-w-lg w-full p-8 sm:p-12 rounded-3xl bg-white/[0.08] border border-white/25 backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.35)] text-center"
             >
               <span className="inline-block text-xs uppercase tracking-[0.25em] text-[#A6865E] font-semibold mb-3 font-['Chillax-Medium',sans-serif]">
                 {PHILOSOPHY_CARDS[activeCard].kicker}

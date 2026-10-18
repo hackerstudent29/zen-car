@@ -32,8 +32,8 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
 
         {/* Dashboard Container */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-20">
-          {/* Tabs Selector Column (Apple-style interactive list) */}
-          <div className="lg:col-span-4 flex flex-col gap-2.5">
+          {/* Tabs Selector Column (Apple-style frosted glass list) */}
+          <div className="lg:col-span-4 flex flex-col gap-3">
             {SHOWCASE_TABS.map((tab) => {
               const isSelected = tab.id === activeTabId;
               return (
@@ -43,10 +43,10 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
                     setActiveTabId(tab.id);
                     setVideoError(false);
                   }}
-                  className={`group relative text-left p-4 rounded-2xl transition-all duration-300 focus:outline-none ${
+                  className={`group relative text-left p-4 rounded-2xl transition-all duration-300 focus:outline-none backdrop-blur-xl ${
                     isSelected
-                      ? "bg-white/10 border border-white/20 shadow-lg"
-                      : "bg-white/[0.03] hover:bg-white/[0.06] border border-white/5"
+                      ? "bg-white/[0.16] border border-white/40 shadow-[0_12px_36px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.4)]"
+                      : "bg-white/[0.05] hover:bg-white/[0.1] border border-white/15 shadow-[0_4px_20px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]"
                   }`}
                 >
                   {/* Apple sliding active indicator */}
@@ -54,7 +54,7 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
                     <motion.div
                       layoutId="activeTabIndicator"
                       transition={EASE_SPRING}
-                      className="absolute inset-0 rounded-2xl border-2 border-[#A6865E]/40 pointer-events-none"
+                      className="absolute inset-0 rounded-2xl border-2 border-[#A6865E]/50 pointer-events-none"
                     />
                   )}
                   <div className="flex items-start gap-4">
@@ -70,7 +70,7 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
                     <div>
                       <h3
                         className={`text-base font-semibold font-['Chillax-Medium',sans-serif] transition-colors ${
-                          isSelected ? "text-[#F6F3E9]" : "text-[#E6E2D8]/80 group-hover:text-[#F6F3E9]"
+                          isSelected ? "text-white" : "text-[#E6E2D8]/80 group-hover:text-white"
                         }`}
                       >
                         {tab.name}
@@ -87,7 +87,7 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
 
           {/* Interactive Screen & Technical HUD */}
           <div className="lg:col-span-8">
-            <div className="relative aspect-video w-full rounded-3xl overflow-hidden bg-black/60 border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl">
+            <div className="relative aspect-video w-full rounded-3xl overflow-hidden bg-black/60 border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.3)] backdrop-blur-2xl">
               {/* Futuristic Targeting Brackets */}
               <div className="hud-corner hud-tl" />
               <div className="hud-corner hud-tr" />
@@ -130,17 +130,17 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
                 </motion.div>
               </AnimatePresence>
 
-              {/* Technical Overlay HUD */}
+              {/* Technical Overlay HUD with Frosted Glass Badges */}
               <div className="absolute inset-x-6 top-6 flex justify-between items-start pointer-events-none z-20">
-                <div className="bg-[#0d0d0c]/70 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-white/10">
+                <div className="bg-[#0d0d0c]/70 backdrop-blur-xl px-3.5 py-1.5 rounded-lg border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                   <span className="block text-[9px] uppercase tracking-widest text-[#A6865E] font-semibold">
                     MODEL
                   </span>
-                  <span className="text-xs font-mono font-bold text-[#F6F3E9]">
+                  <span className="text-xs font-mono font-bold text-white">
                     {activeTab.hud.model}
                   </span>
                 </div>
-                <div className="bg-[#0d0d0c]/70 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-white/10 flex items-center gap-2">
+                <div className="bg-[#0d0d0c]/70 backdrop-blur-xl px-3.5 py-1.5 rounded-lg border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                   <span className="text-[10px] font-mono font-semibold text-emerald-400">
                     {activeTab.hud.status}
@@ -149,19 +149,19 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
               </div>
 
               <div className="absolute inset-x-6 bottom-6 flex justify-between items-end pointer-events-none z-20">
-                <div className="bg-[#0d0d0c]/70 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-white/10 max-w-[50%]">
+                <div className="bg-[#0d0d0c]/70 backdrop-blur-xl px-3.5 py-1.5 rounded-lg border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] max-w-[50%]">
                   <span className="block text-[9px] uppercase tracking-widest text-[#A6865E] font-semibold">
                     POWERTRAIN
                   </span>
-                  <span className="text-[11px] font-mono font-bold text-[#F6F3E9] truncate block">
+                  <span className="text-[11px] font-mono font-bold text-white truncate block">
                     {activeTab.hud.powertrain}
                   </span>
                 </div>
-                <div className="bg-[#0d0d0c]/70 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-white/10 text-right">
+                <div className="bg-[#0d0d0c]/70 backdrop-blur-xl px-3.5 py-1.5 rounded-lg border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] text-right">
                   <span className="block text-[9px] uppercase tracking-widest text-[#A6865E] font-semibold">
                     CALIBRATION
                   </span>
-                  <span className="text-xs font-mono font-bold text-[#F6F3E9]">
+                  <span className="text-xs font-mono font-bold text-white">
                     {activeTab.hud.ratio}
                   </span>
                 </div>
@@ -170,10 +170,10 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
           </div>
         </div>
 
-        {/* Technical Specifications Grid */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-md">
+        {/* Technical Specifications Grid with Frosted Glassmorphism */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-white/[0.05] border border-white/20 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.3)]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-            <h3 className="font-['Rosaline-Regular',Georgia,serif] text-2xl font-bold">
+            <h3 className="font-['Rosaline-Regular',Georgia,serif] text-2xl font-bold text-white">
               Technical Specifications
             </h3>
             <span className="text-xs font-mono text-[#A6865E] tracking-wider uppercase">
@@ -182,17 +182,17 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {TECHNICAL_SPECS.map((spec, i) => (
+            {TECHNICAL_SPECS.map((spec) => (
               <motion.div
                 key={spec.label}
-                whileHover={{ y: -4, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+                whileHover={{ y: -4, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
                 transition={EASE_SPRING}
-                className="p-5 rounded-2xl bg-white/[0.03] border border-white/5 transition-all"
+                className="p-5 rounded-2xl bg-white/[0.05] border border-white/15 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] transition-all"
               >
                 <span className="text-xs text-[#E6E2D8]/60 uppercase tracking-wider block mb-1 font-['Chillax-Regular',sans-serif]">
                   {spec.label}
                 </span>
-                <span className="text-xl font-bold font-['Chillax-Bold',sans-serif] text-[#F6F3E9] block">
+                <span className="text-xl font-bold font-['Chillax-Bold',sans-serif] text-white block">
                   {spec.value}
                 </span>
                 <span className="text-[11px] text-[#A6865E] mt-1 block font-mono">
@@ -208,7 +208,7 @@ export default function ShowcaseSection({ onOpenReserve }: ShowcaseSectionProps)
               whileTap={{ scale: 0.98 }}
               transition={EASE_SPRING}
               onClick={onOpenReserve}
-              className="px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider text-[#0d0d0c] bg-[#F6F3E9] hover:bg-white shadow-[0_10px_30px_rgba(246,243,233,0.25)] transition-all"
+              className="px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider text-[#0d0d0c] bg-[#F6F3E9] hover:bg-white shadow-[0_10px_30px_rgba(246,243,233,0.3)] transition-all"
             >
               Reserve This Specification
             </motion.button>
