@@ -891,128 +891,122 @@ function Finale({ onReserve }: { onReserve: () => void }) {
 }
 
 function Footer({ onReserve }: { onReserve: () => void }) {
-  const link = "transition-colors duration-200 hover:text-white";
+  const link = "transition-colors duration-200 hover:text-white text-xs text-[#E6E2D8]/70";
   return (
-    <footer className="border-t border-white/[0.08] bg-[#090909] px-4 pt-12 pb-10 text-[#E6E2D8]/60 sm:px-8 sm:pt-16 sm:pb-14">
+    <footer className="border-t border-white/[0.08] bg-[#080808] px-4 pt-10 pb-8 text-[#E6E2D8]/70 sm:px-8 sm:pt-14 sm:pb-10">
       <div className="mx-auto max-w-6xl">
-        {/* Apple-style Footnotes / Disclaimers */}
-        <div className="mb-8 space-y-2 text-[11px] leading-relaxed text-[#E6E2D8]/45 border-b border-white/[0.07] pb-8 font-['Satoshi-Regular',sans-serif]">
-          <p>
-            1. All speed, output, and range figures (including 0–100 km/h in 2.8s, 750 hp peak output, and 620 km solid-state range) represent internal engineering targets evaluated under closed-track test protocols. Actual driving range and metrics may vary based on temperature, driver behavior, payload, and battery age.
-          </p>
-          <p>
-            2. 12 dB cabin noise floor achieved with Active Phase Acoustic Cancellation engaged at standardized 100 km/h highway speeds on smooth bitumen surfaces.
-          </p>
-          <p>
-            3. Series 01 Founding Allocation is strictly capped at 50 numbered vehicles worldwide. Allocation deposits are held in dedicated escrow accounts and remain 100% refundable at any time prior to chassis specification finalization.
-          </p>
+        {/* Main Clean Row */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between pb-8 border-b border-white/[0.08]">
+          {/* Brand + Tagline */}
+          <div className="space-y-1">
+            <div className="flex items-center gap-3">
+              <a href="#hero" onClick={go("hero")} aria-label="ZEN Home" className="inline-block transition-opacity hover:opacity-80">
+                <span className={`${F_HEAD} text-2xl tracking-[0.2em] font-bold text-white`}>ZEN</span>
+              </a>
+              <span className="h-3 w-px bg-white/20" />
+              <span className="text-xs uppercase tracking-widest text-[#A6865E] font-['Chillax-Medium',sans-serif]">GT Hypercar</span>
+            </div>
+            <p className="text-xs text-[#E6E2D8]/50 font-['Satoshi-Regular',sans-serif]">
+              Automotive minimalism for the mindful driver.
+            </p>
+          </div>
+
+          {/* Real Pages / Navigation */}
+          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-['Chillax-Medium',sans-serif]" aria-label="Footer Navigation">
+            <a href="#showcase" onClick={go("showcase")} className={link}>Anatomy</a>
+            <a href="#philosophy" onClick={go("philosophy")} className={link}>Philosophy</a>
+            <a href="#gallery" onClick={go("gallery")} className={link}>Gallery</a>
+            <Link href="/full-video" className={link}>Film</Link>
+            <button onClick={onReserve} className={`${link} text-[#A6865E] hover:text-[#F6F3E9] font-semibold`}>Reserve</button>
+            <Link href="/privacy" className={link}>Privacy</Link>
+            <Link href="/terms" className={link}>Terms</Link>
+          </nav>
+
+          {/* Back to top */}
+          <div>
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-xs text-white border border-white/20 bg-white/[0.08] backdrop-blur-xl hover:bg-white/[0.16] hover:border-white/40 transition-colors shadow-[0_4px_16px_rgba(0,0,0,0.3)] ${F_MED}`}
+            >
+              <span>Back to top</span>
+              <ArrowUp className="h-3.5 w-3.5 text-[#A6865E]" />
+            </motion.button>
+          </div>
         </div>
 
-        {/* Apple-style Breadcrumbs Bar */}
-        <div className="flex items-center justify-between pb-6 border-b border-white/[0.07] mb-8 text-xs text-[#E6E2D8]/50">
+        {/* Social & Contact Bar */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-6 text-xs text-[#E6E2D8]/50">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="text-[11px] uppercase tracking-wider text-[#E6E2D8]/40 mr-1 font-mono">Connect:</span>
+            
+            {/* GitHub */}
+            <motion.a
+              href="https://github.com/hackerstudent29/zen-car"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Repository"
+              whileHover={{ scale: 1.06, y: -2 }}
+              whileTap={{ scale: 0.94 }}
+              className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] hover:bg-white/[0.14] hover:border-white/35 px-3 py-1.5 text-xs text-white backdrop-blur-xl transition-all shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+            >
+              <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              <span>GitHub</span>
+            </motion.a>
+
+            {/* LinkedIn */}
+            <motion.a
+              href="https://linkedin.com/in/ramanathan-s-it"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
+              whileHover={{ scale: 1.06, y: -2 }}
+              whileTap={{ scale: 0.94 }}
+              className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] hover:bg-white/[0.14] hover:border-white/35 px-3 py-1.5 text-xs text-white backdrop-blur-xl transition-all shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+            >
+              <svg className="h-3.5 w-3.5 fill-current text-[#0A66C2]" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.778-.773 1.778-1.729V1.73C24 .774 23.205 0 22.225 0z"/>
+              </svg>
+              <span>LinkedIn</span>
+            </motion.a>
+
+            {/* Instagram */}
+            <motion.a
+              href="https://instagram.com/ramzendrum"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Profile"
+              whileHover={{ scale: 1.06, y: -2 }}
+              whileTap={{ scale: 0.94 }}
+              className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] hover:bg-white/[0.14] hover:border-white/35 px-3 py-1.5 text-xs text-white backdrop-blur-xl transition-all shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+            >
+              <svg className="h-3.5 w-3.5 fill-current text-[#E4405F]" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              <span>ramzendrum</span>
+            </motion.a>
+
+            {/* Email */}
+            <motion.a
+              href="mailto:ramanathanb86@gmail.com"
+              aria-label="Email Ramanathan"
+              whileHover={{ scale: 1.06, y: -2 }}
+              whileTap={{ scale: 0.94 }}
+              className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] hover:bg-white/[0.14] hover:border-white/35 px-3 py-1.5 text-xs text-white backdrop-blur-xl transition-all shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+            >
+              <svg className="h-3.5 w-3.5 fill-none stroke-current text-[#A6865E]" strokeWidth="2" viewBox="0 0 24 24">
+                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <span>ramanathanb86@gmail.com</span>
+            </motion.a>
+          </div>
+
           <div className="flex items-center gap-2">
-            <a href="#hero" onClick={go("hero")} aria-label="ZEN Home" className="text-white hover:opacity-80 transition-opacity">
-              <span className={`${F_HEAD} text-base tracking-[0.16em] font-bold`}>ZEN</span>
-            </a>
-            <span className="text-white/30">/</span>
-            <span className="text-[#E6E2D8]/80 font-medium">ZEN GT</span>
-          </div>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-1.5 text-xs text-[#E6E2D8]/70 hover:text-white transition-colors"
-          >
-            <span>Back to top</span>
-            <ArrowUp className="h-3.5 w-3.5 text-[#A6865E]" />
-          </motion.button>
-        </div>
-
-        {/* Apple-style 5-Column Navigation Grid */}
-        <div className="grid grid-cols-2 gap-8 text-xs sm:grid-cols-3 md:grid-cols-5 pb-10 border-b border-white/[0.07]">
-          {/* Col 1: Explore */}
-          <div className="space-y-3">
-            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
-              Explore
-            </h4>
-            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
-              <li><a href="#showcase" onClick={go("showcase")} className={link}>Anatomy & Dynamics</a></li>
-              <li><a href="#philosophy" onClick={go("philosophy")} className={link}>Design Philosophy</a></li>
-              <li><a href="#gallery" onClick={go("gallery")} className={link}>Visual Gallery</a></li>
-              <li><Link href="/full-video" className={link}>Experience Film</Link></li>
-            </ul>
-          </div>
-
-          {/* Col 2: Specifications */}
-          <div className="space-y-3">
-            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
-              Engineering
-            </h4>
-            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
-              <li><span className="cursor-default">Dual Silent Motors</span></li>
-              <li><span className="cursor-default">Silicon Carbide Core</span></li>
-              <li><span className="cursor-default">Carbon Monocoque</span></li>
-              <li><span className="cursor-default">Whisper Acoustic Tub</span></li>
-            </ul>
-          </div>
-
-          {/* Col 3: Atelier */}
-          <div className="space-y-3">
-            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
-              Atelier
-            </h4>
-            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
-              <li><span className="cursor-default">Series 01 (50 Units)</span></li>
-              <li><span className="cursor-default">Hand-Crafted Finish</span></li>
-              <li><span className="cursor-default">12-Layer Lacquer</span></li>
-              <li><span className="cursor-default">Private Delivery</span></li>
-            </ul>
-          </div>
-
-          {/* Col 4: Concierge */}
-          <div className="space-y-3">
-            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
-              Client Services
-            </h4>
-            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
-              <li><button onClick={onReserve} className={`${link} text-left text-[#A6865E] font-medium`}>Reserve Allocation</button></li>
-              <li><a href="mailto:concierge@zenautomotive.com" className={link}>Private Concierge</a></li>
-              <li><span className="cursor-default">Global Transport</span></li>
-              <li><span className="cursor-default">Escrow Verification</span></li>
-            </ul>
-          </div>
-
-          {/* Col 5: Legal */}
-          <div className="space-y-3 col-span-2 sm:col-span-1">
-            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
-              Trust & Legal
-            </h4>
-            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
-              <li><Link href="/privacy" className={link}>Privacy Policy</Link></li>
-              <li><Link href="/terms" className={link}>Terms of Reservation</Link></li>
-              <li><span className="cursor-default">Regulatory Filings</span></li>
-              <li><span className="cursor-default">Security Whitepaper</span></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Apple-style Bottom Row */}
-        <div className="flex flex-col items-start justify-between gap-4 pt-6 text-[11px] sm:flex-row sm:items-center text-[#E6E2D8]/40">
-          <p>
-            Copyright &copy; 2026 ZEN Automotive Corporation. All rights reserved.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <span>|</span>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
-            <span>|</span>
-            <span className="hover:text-white cursor-pointer transition-colors">Sales Policy</span>
-            <span>|</span>
-            <span className="hover:text-white cursor-pointer transition-colors">Legal Notices</span>
-            <span>|</span>
-            <span className="text-[#A6865E]/80">United States / Global</span>
+            <span>&copy; 2026 ZEN Automotive Corporation.</span>
           </div>
         </div>
       </div>
