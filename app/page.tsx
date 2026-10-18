@@ -43,12 +43,38 @@ const TABS = [
   { id: "garage", num: "05", name: "Atelier", desc: "The birthplace of detail", video: `${A}car garage transformation.mp4`, fb: `${A}car image in garage with light on.png`, model: "ZEN Workshop 01", status: "Bespoke queue", power: "Hand-crafted composite", ratio: "Series 01–50" },
 ];
 
-const SPECS = [
-  { n: 750, dec: 0, u: "hp", l: "Output", d: "Dual silent motors" },
-  { n: 12, dec: 0, u: "dB", l: "Cabin isolation", d: "Active phase cancellation" },
-  { n: 620, dec: 0, u: "km", l: "Range", d: "Solid-state thermal" },
-  { n: 2.8, dec: 1, u: "s", l: "0–100 km/h", d: "Zero-slip torque" },
-];
+const TAB_SPECS: Record<string, Array<{ n: number; dec: number; u: string; l: string; d: string }>> = {
+  motion: [
+    { n: 2.8, dec: 1, u: "s", l: "0–100 km/h", d: "Zero-slip torque vectoring" },
+    { n: 320, dec: 0, u: "km/h", l: "Top Velocity", d: "Aero drag-governed ceiling" },
+    { n: 50, dec: 0, u: "%", l: "Weight Distribution", d: "50:50 neutral axle balance" },
+    { n: 0.19, dec: 2, u: "Cd", l: "Drag Coefficient", d: "Laminar airflow efficiency" },
+  ],
+  interior: [
+    { n: 12, dec: 0, u: "dB", l: "Cabin Isolation", d: "Active acoustic phase cancellation" },
+    { n: 28, dec: 0, u: "spk", l: "Spatial Audio", d: "Concert-hall acoustic matrix" },
+    { n: 22, dec: 0, u: "ways", l: "Seat Articulation", d: "Pneumatic posture memory" },
+    { n: 100, dec: 0, u: "%", l: "Organic Nappa", d: "Vegetable-tanned tactile leather" },
+  ],
+  engine: [
+    { n: 750, dec: 0, u: "hp", l: "Peak Output", d: "Dual permanent magnet motors" },
+    { n: 1050, dec: 0, u: "Nm", l: "Instant Torque", d: "Zero mechanical hesitation" },
+    { n: 98.4, dec: 1, u: "%", l: "Core Efficiency", d: "Silicon carbide power inverters" },
+    { n: 21000, dec: 0, u: "rpm", l: "Rotor Spin", d: "Carbon-fiber rotor sleeve" },
+  ],
+  tyre: [
+    { n: 1.35, dec: 2, u: "G", l: "Lateral Adhesion", d: "Dynamic vector road adhesion" },
+    { n: 32, dec: 0, u: "m", l: "100–0 km/h", d: "Carbon-ceramic heat sink" },
+    { n: 21, dec: 0, u: "in", l: "Forged Monoblock", d: "Lightweight vortex alloys" },
+    { n: 1000, dec: 0, u: "Hz", l: "Damper Telemetry", d: "Millisecond magnetic adaptation" },
+  ],
+  garage: [
+    { n: 50, dec: 0, u: "units", l: "Founding Run", d: "Numbered global allocation" },
+    { n: 480, dec: 0, u: "hrs", l: "Hand Build", d: "Master-artisan finish per car" },
+    { n: 12, dec: 0, u: "layers", l: "Piano Lacquer", d: "Multi-stage hand-buffed coating" },
+    { n: 100, dec: 0, u: "%", l: "Prepreg Carbon", d: "Autoclave aeronautic monocoque" },
+  ],
+};
 
 const IDEAS = [
   { k: "Philosophy", t: "Clarity over noise.", d: "We strip away everything that doesn't matter.", v: `${A}car driving on street with zoomout.mp4` },
@@ -128,10 +154,10 @@ function Btn({
     variant === "light"
       ? "bg-[#F6F3E9] text-[#0d0d0c] hover:bg-white shadow-[0_10px_30px_rgba(246,243,233,0.2)]"
       : variant === "goldGlass"
-      ? "border border-[#A6865E]/90 bg-gradient-to-b from-[#A6865E]/40 via-[#A6865E]/25 to-[#A6865E]/15 text-white hover:from-[#A6865E]/55 hover:to-[#A6865E]/30 hover:border-[#F6F3E9] backdrop-blur-3xl shadow-[0_14px_45px_rgba(0,0,0,0.7),0_0_28px_rgba(166,134,94,0.4),inset_0_1px_1.5px_rgba(255,255,255,0.8),inset_0_-1px_1px_rgba(0,0,0,0.5)]"
+      ? "border border-white/35 bg-white/[0.14] text-white hover:bg-white/[0.24] hover:border-white/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.55)]"
       : variant === "gold"
-      ? "border border-[#A6865E]/40 bg-[#A6865E]/10 text-[#A6865E] hover:bg-[#A6865E]/20 backdrop-blur-md"
-      : "border border-white/50 bg-gradient-to-b from-white/35 via-white/20 to-white/[0.08] text-white hover:from-white/45 hover:to-white/25 hover:border-white/80 backdrop-blur-3xl shadow-[0_14px_45px_rgba(0,0,0,0.7),inset_0_1px_1.5px_rgba(255,255,255,0.85),inset_0_-1px_1px_rgba(0,0,0,0.5)]"
+      ? "border border-white/25 bg-white/[0.10] text-white hover:bg-white/[0.20] backdrop-blur-xl"
+      : "border border-white/20 bg-white/[0.07] text-white/90 hover:text-white hover:bg-white/[0.16] hover:border-white/45 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.35)]"
   }`;
   return (
     <motion.div
@@ -404,7 +430,7 @@ function Hero({ onReserve }: { onReserve: () => void }) {
         <motion.canvas ref={canvasRef} style={{ scale: zoom }} className="absolute inset-0 h-full w-full" aria-label="ZEN GT scroll animation" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0d0c] via-transparent to-[#0d0d0c]/70" />
 
-        <HeroPhase p={p} outR={[0.14, 0.24]} baseY={15} liftY={-65}>
+        <HeroPhase p={p} outR={[0.14, 0.24]} baseY={25} liftY={-40}>
           <span className={`mb-3 ${KICKER}`}><span className={`${F_HEAD} text-sm tracking-[0.2em]`}>ZEN</span> GT</span>
           <h1 className={H_XL}>Pure form.<br />Pure mind.</h1>
           <p className={`mt-3 max-w-xs ${LEAD}`}>Silence, engineered.</p>
@@ -413,15 +439,15 @@ function Hero({ onReserve }: { onReserve: () => void }) {
             <Btn href="/full-video" variant="glass">Watch the film</Btn>
           </div>
         </HeroPhase>
-        <HeroPhase p={p} inR={[0.24, 0.32]} outR={[0.42, 0.5]} baseY={-65} liftY={-50}>
+        <HeroPhase p={p} inR={[0.24, 0.32]} outR={[0.42, 0.5]} baseY={-10} liftY={-30}>
           <h2 className={H_XL}>Silence<br />awakens.</h2>
-          <p className={`mt-3 max-w-xs ${LEAD}`}>A silhouette forged in stillness.</p>
+          <p className={`mt-2.5 max-w-xs ${LEAD}`}>A silhouette forged in stillness.</p>
         </HeroPhase>
-        <HeroPhase p={p} inR={[0.5, 0.58]} outR={[0.7, 0.78]} baseY={-115} liftY={-30}>
+        <HeroPhase p={p} inR={[0.5, 0.58]} outR={[0.7, 0.78]} baseY={-45} liftY={-25}>
           <h2 className={H_XL}>Form follows<br />mind.</h2>
-          <p className={`mt-3 max-w-xs ${LEAD}`}>Nothing added. Nothing wasted.</p>
+          <p className={`mt-2.5 max-w-xs ${LEAD}`}>Nothing added. Nothing wasted.</p>
         </HeroPhase>
-        <HeroPhase p={p} inR={[0.78, 0.86]} baseY={-140} liftY={-10}>
+        <HeroPhase p={p} inR={[0.78, 0.86]} baseY={-70} liftY={-10}>
           <h2 className={H_XL}>Meet the<br /><span className={F_HEAD}>ZEN</span> GT.</h2>
           <p className={`mt-3 max-w-xs ${LEAD}`}>Electric. Effortless. Yours.</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -513,19 +539,35 @@ function Showcase({ onReserve }: { onReserve: () => void }) {
           </div>
         </Reveal>
 
-        <div className="mt-20 grid grid-cols-2 gap-3 sm:mt-28 sm:gap-4 lg:grid-cols-4">
-          {SPECS.map((s, i) => (
-            <Reveal key={s.l} delay={i * 0.08}>
-              <motion.div whileHover={{ y: -6, backgroundColor: "rgba(255,255,255,0.11)" }} transition={SPRING} className={`h-full rounded-[24px] p-5 sm:p-7 ${GLASS}`}>
-                <span className={`block text-[clamp(2.25rem,6vw,3.5rem)] leading-none tracking-tight text-white ${F_BOLD}`}>
-                  <CountUp to={s.n} dec={s.dec} />
-                  <span className="ml-1 text-base text-[#A6865E] sm:text-xl">{s.u}</span>
-                </span>
-                <span className={`mt-4 block text-sm text-[#F6F3E9] ${F_MED}`}>{s.l}</span>
-                <span className="mt-1 block text-[11px] font-mono text-[#A6865E]">{s.d}</span>
-              </motion.div>
-            </Reveal>
-          ))}
+        <div className="mt-16 sm:mt-24">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35, ease: EASE }}
+              className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
+            >
+              {(TAB_SPECS[tab.id] ?? TAB_SPECS.motion).map((s, i) => (
+                <motion.div
+                  key={s.l}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  whileHover={{ y: -6, backgroundColor: "rgba(255,255,255,0.11)" }}
+                  className={`h-full rounded-[24px] p-5 sm:p-7 ${GLASS} transition-colors`}
+                >
+                  <span className={`block text-[clamp(2.25rem,6vw,3.5rem)] leading-none tracking-tight text-white ${F_BOLD}`}>
+                    <CountUp to={s.n} dec={s.dec} />
+                    <span className="ml-1 text-base text-[#A6865E] sm:text-xl">{s.u}</span>
+                  </span>
+                  <span className={`mt-4 block text-sm text-[#F6F3E9] ${F_MED}`}>{s.l}</span>
+                  <span className="mt-1 block text-[11px] font-mono text-[#A6865E]">{s.d}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
         <Reveal className="mt-10 flex justify-center"><Btn onClick={onReserve}>Reserve this spec</Btn></Reveal>
       </div>
@@ -580,25 +622,45 @@ function Philosophy() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Gallery – parallax bento                                           */
+/*  Gallery – parallax bento with downward scroll animation            */
 /* ------------------------------------------------------------------ */
-function GalleryCard({ g }: { g: (typeof GALLERY)[number] }) {
+function GalleryCard({ g, idx }: { g: (typeof GALLERY)[number]; idx: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-7%", "7%"]);
+  // Staggered downward entrance & flow as user scrolls down
+  const initialOffset = idx % 2 === 0 ? -80 : -45;
+  const cardY = useTransform(scrollYProgress, [0, 0.45, 1], [initialOffset, 0, 35]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.25], [0.4, 1]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.35], [0.95, 1]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-12%", "10%"]);
+
   return (
-    <Reveal className={g.span}>
-      <motion.div ref={ref} whileHover={{ scale: 1.012 }} transition={SPRING} className={`group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 sm:rounded-[36px] ${g.ratio}`}>
-        <motion.div style={{ y }} className="absolute -inset-[8%]">
-          <Image src={g.src} alt={g.alt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105" />
+    <motion.div
+      ref={ref}
+      style={{ y: cardY, opacity: cardOpacity, scale: cardScale }}
+      className={`${g.span} will-change-transform`}
+    >
+      <motion.div
+        whileHover={{ scale: 1.015 }}
+        transition={SPRING}
+        className={`group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 sm:rounded-[36px] ${g.ratio}`}
+      >
+        <motion.div style={{ y: imgY }} className="absolute -inset-[12%]">
+          <Image
+            src={g.src}
+            alt={g.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+          />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
         <div className={`absolute bottom-4 left-4 rounded-2xl px-4 py-2.5 sm:bottom-6 sm:left-6 ${GLASS}`}>
           <span className={`block text-sm text-white ${F_MED}`}>{g.t}</span>
           <span className={`block text-[11px] text-[#E6E2D8]/70 ${F_BODY}`}>{g.s}</span>
         </div>
       </motion.div>
-    </Reveal>
+    </motion.div>
   );
 }
 
@@ -607,8 +669,10 @@ function Gallery() {
     <section id="gallery" className="bg-[#0d0d0c] px-4 py-24 sm:px-8 sm:py-36">
       <div className="mx-auto max-w-6xl">
         <Heading kicker="Gallery" title="Form & function." />
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-16 sm:gap-6 md:grid-cols-2">
-          {GALLERY.map((g) => <GalleryCard key={g.src} g={g} />)}
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2">
+          {GALLERY.map((g, idx) => (
+            <GalleryCard key={g.src} g={g} idx={idx} />
+          ))}
         </div>
       </div>
     </section>
@@ -638,44 +702,129 @@ function Finale({ onReserve }: { onReserve: () => void }) {
 }
 
 function Footer({ onReserve }: { onReserve: () => void }) {
-  const link = "transition-colors duration-300 hover:text-[#F6F3E9]";
+  const link = "transition-colors duration-200 hover:text-white";
   return (
-    <footer className="border-t border-white/10 bg-[#080808] px-5 pb-10 pt-16 text-[#F6F3E9] sm:px-8 sm:pt-20">
+    <footer className="border-t border-white/[0.08] bg-[#090909] px-4 pt-12 pb-10 text-[#E6E2D8]/60 sm:px-8 sm:pt-16 sm:pb-14">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-14 grid gap-10 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <span className={`${F_BOLD} text-2xl font-bold tracking-[0.25em] text-white`}>ZEN</span>
-            <p className={`mb-6 mt-3 max-w-xs text-sm text-[#E6E2D8]/60 ${F_BODY}`}>Automotive minimalism for the mindful driver.</p>
-            <div className="flex items-center gap-3">
-              <Btn onClick={onReserve} variant="goldGlass">Reserve</Btn>
-              <motion.button whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }} transition={SPRING} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top" className={`rounded-full p-3 text-[#E6E2D8] ${GLASS}`}>
-                <ArrowUp className="h-4 w-4" />
-              </motion.button>
-            </div>
+        {/* Apple-style Footnotes / Disclaimers */}
+        <div className="mb-8 space-y-2 text-[11px] leading-relaxed text-[#E6E2D8]/45 border-b border-white/[0.07] pb-8 font-['Satoshi-Regular',sans-serif]">
+          <p>
+            1. All speed, output, and range figures (including 0–100 km/h in 2.8s, 750 hp peak output, and 620 km solid-state range) represent internal engineering targets evaluated under closed-track test protocols. Actual driving range and metrics may vary based on temperature, driver behavior, payload, and battery age.
+          </p>
+          <p>
+            2. 12 dB cabin noise floor achieved with Active Phase Acoustic Cancellation engaged at standardized 100 km/h highway speeds on smooth bitumen surfaces.
+          </p>
+          <p>
+            3. Series 01 Founding Allocation is strictly capped at 50 numbered vehicles worldwide. Allocation deposits are held in dedicated escrow accounts and remain 100% refundable at any time prior to chassis specification finalization.
+          </p>
+        </div>
+
+        {/* Apple-style Breadcrumbs Bar */}
+        <div className="flex items-center justify-between pb-6 border-b border-white/[0.07] mb-8 text-xs text-[#E6E2D8]/50">
+          <div className="flex items-center gap-2">
+            <a href="#hero" onClick={go("hero")} aria-label="ZEN Home" className="text-white hover:opacity-80 transition-opacity">
+              <span className={`${F_HEAD} text-base tracking-[0.16em] font-bold`}>ZEN</span>
+            </a>
+            <span className="text-white/30">/</span>
+            <span className="text-[#E6E2D8]/80 font-medium">ZEN GT</span>
           </div>
-          <div className="grid grid-cols-2 gap-8 text-sm text-[#E6E2D8]/60 md:col-span-7 md:grid-cols-3">
-            <ul className="space-y-3">
-              <li className={`text-xs uppercase tracking-[0.2em] text-[#A6865E] ${F_MED}`}>Explore</li>
-              <li><a href="#showcase" onClick={go("showcase")} className={link}>Anatomy</a></li>
-              <li><a href="#philosophy" onClick={go("philosophy")} className={link}>Philosophy</a></li>
-              <li><a href="#gallery" onClick={go("gallery")} className={link}>Gallery</a></li>
-              <li><Link href="/full-video" className={link}>Film</Link></li>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center gap-1.5 text-xs text-[#E6E2D8]/70 hover:text-white transition-colors"
+          >
+            <span>Back to top</span>
+            <ArrowUp className="h-3.5 w-3.5 text-[#A6865E]" />
+          </motion.button>
+        </div>
+
+        {/* Apple-style 5-Column Navigation Grid */}
+        <div className="grid grid-cols-2 gap-8 text-xs sm:grid-cols-3 md:grid-cols-5 pb-10 border-b border-white/[0.07]">
+          {/* Col 1: Explore */}
+          <div className="space-y-3">
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
+              Explore
+            </h4>
+            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
+              <li><a href="#showcase" onClick={go("showcase")} className={link}>Anatomy & Dynamics</a></li>
+              <li><a href="#philosophy" onClick={go("philosophy")} className={link}>Design Philosophy</a></li>
+              <li><a href="#gallery" onClick={go("gallery")} className={link}>Visual Gallery</a></li>
+              <li><Link href="/full-video" className={link}>Experience Film</Link></li>
             </ul>
-            <ul className="space-y-3">
-              <li className={`text-xs uppercase tracking-[0.2em] text-[#A6865E] ${F_MED}`}>Contact</li>
-              <li><button onClick={onReserve} className={link}>Reserve</button></li>
-              <li><a href="mailto:concierge@zenautomotive.com" className={link}>Concierge</a></li>
+          </div>
+
+          {/* Col 2: Specifications */}
+          <div className="space-y-3">
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
+              Engineering
+            </h4>
+            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
+              <li><span className="cursor-default">Dual Silent Motors</span></li>
+              <li><span className="cursor-default">Silicon Carbide Core</span></li>
+              <li><span className="cursor-default">Carbon Monocoque</span></li>
+              <li><span className="cursor-default">Whisper Acoustic Tub</span></li>
             </ul>
-            <ul className="space-y-3">
-              <li className={`text-xs uppercase tracking-[0.2em] text-[#A6865E] ${F_MED}`}>Legal</li>
-              <li><Link href="/privacy" className={link}>Privacy</Link></li>
-              <li><Link href="/terms" className={link}>Terms</Link></li>
+          </div>
+
+          {/* Col 3: Atelier */}
+          <div className="space-y-3">
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
+              Atelier
+            </h4>
+            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
+              <li><span className="cursor-default">Series 01 (50 Units)</span></li>
+              <li><span className="cursor-default">Hand-Crafted Finish</span></li>
+              <li><span className="cursor-default">12-Layer Lacquer</span></li>
+              <li><span className="cursor-default">Private Delivery</span></li>
+            </ul>
+          </div>
+
+          {/* Col 4: Concierge */}
+          <div className="space-y-3">
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
+              Client Services
+            </h4>
+            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
+              <li><button onClick={onReserve} className={`${link} text-left text-[#A6865E] font-medium`}>Reserve Allocation</button></li>
+              <li><a href="mailto:concierge@zenautomotive.com" className={link}>Private Concierge</a></li>
+              <li><span className="cursor-default">Global Transport</span></li>
+              <li><span className="cursor-default">Escrow Verification</span></li>
+            </ul>
+          </div>
+
+          {/* Col 5: Legal */}
+          <div className="space-y-3 col-span-2 sm:col-span-1">
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-[#F6F3E9] font-['Chillax-Medium',sans-serif]">
+              Trust & Legal
+            </h4>
+            <ul className="space-y-2 font-['Satoshi-Regular',sans-serif]">
+              <li><Link href="/privacy" className={link}>Privacy Policy</Link></li>
+              <li><Link href="/terms" className={link}>Terms of Reservation</Link></li>
+              <li><span className="cursor-default">Regulatory Filings</span></li>
+              <li><span className="cursor-default">Security Whitepaper</span></li>
             </ul>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/5 pt-7 text-xs text-[#E6E2D8]/40 sm:flex-row">
-          <p>&copy; 2026 ZEN Automotive Corporation.</p>
-          <span className="flex items-center gap-1.5 font-mono text-[10px] tracking-wider"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />TLS 1.3 · Series 01–50</span>
+
+        {/* Apple-style Bottom Row */}
+        <div className="flex flex-col items-start justify-between gap-4 pt-6 text-[11px] sm:flex-row sm:items-center text-[#E6E2D8]/40">
+          <p>
+            Copyright &copy; 2026 ZEN Automotive Corporation. All rights reserved.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <span>|</span>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+            <span>|</span>
+            <span className="hover:text-white cursor-pointer transition-colors">Sales Policy</span>
+            <span>|</span>
+            <span className="hover:text-white cursor-pointer transition-colors">Legal Notices</span>
+            <span>|</span>
+            <span className="text-[#A6865E]/80">United States / Global</span>
+          </div>
         </div>
       </div>
     </footer>
@@ -759,11 +908,11 @@ function GlassSelect({
       <AnimatePresence>
         {open && (
           <motion.ul
-            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            initial={{ opacity: 0, y: 6, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            exit={{ opacity: 0, y: 6, scale: 0.98 }}
             transition={{ duration: 0.18, ease: EASE }}
-            className="absolute left-0 right-0 top-full mt-2 z-50 space-y-0.5 overflow-hidden rounded-2xl border border-white/20 bg-[#161615]/95 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="absolute left-0 right-0 bottom-full mb-2 z-50 space-y-0.5 overflow-hidden rounded-2xl border border-white/20 bg-[#161615]/98 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {options.map((opt) => {
               const selected = opt === value;

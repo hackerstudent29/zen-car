@@ -195,10 +195,10 @@ export default function ReservationModal({ isOpen, onClose }: ReservationModalPr
                       <AnimatePresence>
                         {modelDropdownOpen && (
                           <motion.ul
-                            initial={{ opacity: 0, y: -6 }}
+                            initial={{ opacity: 0, y: 6 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            className="absolute left-0 right-0 top-full mt-2 rounded-2xl border border-white/20 bg-[#161615]/95 p-1.5 backdrop-blur-3xl shadow-2xl z-50 space-y-0.5"
+                            exit={{ opacity: 0, y: 6 }}
+                            className="absolute left-0 right-0 bottom-full mb-2 rounded-2xl border border-white/20 bg-[#161615]/98 p-1.5 backdrop-blur-3xl shadow-2xl z-50 space-y-0.5"
                           >
                             {EDITIONS.map((m) => (
                               <li key={m}>
@@ -236,10 +236,10 @@ export default function ReservationModal({ isOpen, onClose }: ReservationModalPr
                       <AnimatePresence>
                         {timelineDropdownOpen && (
                           <motion.ul
-                            initial={{ opacity: 0, y: -6 }}
+                            initial={{ opacity: 0, y: 6 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            className="absolute left-0 right-0 top-full mt-2 rounded-2xl border border-white/20 bg-[#161615]/95 p-1.5 backdrop-blur-3xl shadow-2xl z-50 space-y-0.5"
+                            exit={{ opacity: 0, y: 6 }}
+                            className="absolute left-0 right-0 bottom-full mb-2 rounded-2xl border border-white/20 bg-[#161615]/98 p-1.5 backdrop-blur-3xl shadow-2xl z-50 space-y-0.5"
                           >
                             {TIMELINES.map((t) => (
                               <li key={t}>
