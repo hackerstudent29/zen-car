@@ -156,11 +156,11 @@ export default function HeroScrollytelling({ onOpenReserve }: HeroScrollytelling
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    // Smooth Lerp animation loop
+    // Smooth Lerp animation loop with cinematic Apple spring inertia
     const animate = () => {
       const diff = targetFrameRef.current - currentFrameRef.current;
       if (Math.abs(diff) > 0.01) {
-        currentFrameRef.current += diff * 0.12; // Apple spring damper
+        currentFrameRef.current += diff * 0.085; // Butter-smooth Apple cinematic damper
         drawFrame(Math.round(currentFrameRef.current));
       }
       animFrameIdRef.current = requestAnimationFrame(animate);
@@ -175,7 +175,7 @@ export default function HeroScrollytelling({ onOpenReserve }: HeroScrollytelling
   }, [drawFrame]);
 
   return (
-    <div ref={containerRef} className="relative h-[320vh] w-full bg-[#0d0d0c]">
+    <div ref={containerRef} className="relative h-[560vh] sm:h-[620vh] w-full bg-[#0d0d0c]">
       {/* Sticky Viewport */}
       <div id="hero" className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Preloader */}
