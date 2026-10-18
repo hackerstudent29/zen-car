@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, Play } from "lucide-react";
 import { EASE_SPRING } from "@/lib/constants";
@@ -20,9 +21,46 @@ const EXPERIENCE_VIDEOS = [
 ];
 
 export default function FullVideoPage() {
+  const router = useRouter();
   const [activeVideo, setActiveVideo] = useState(EXPERIENCE_VIDEOS[0]);
   const [hasEntered, setHasEntered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const exitFullscreenMode = useCallback(() => {
+    if (typeof document === "undefined") return;
+    const doc = document as unknown as {
+      fullscreenElement?: Element | null;
+      webkitFullscreenElement?: Element | null;
+      mozFullScreenElement?: Element | null;
+      msFullscreenElement?: Element | null;
+      exitFullscreen?: () => Promise<void>;
+      webkitExitFullscreen?: () => void;
+      mozCancelFullScreen?: () => void;
+      msExitFullscreen?: () => void;
+    };
+    if (
+      doc.fullscreenElement ||
+      doc.webkitFullscreenElement ||
+      doc.mozFullScreenElement ||
+      doc.msFullscreenElement
+    ) {
+      if (doc.exitFullscreen) {
+        doc.exitFullscreen().catch(() => {});
+      } else if (doc.webkitExitFullscreen) {
+        doc.webkitExitFullscreen();
+      } else if (doc.mozCancelFullScreen) {
+        doc.mozCancelFullScreen();
+      } else if (doc.msExitFullscreen) {
+        doc.msExitFullscreen();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      exitFullscreenMode();
+    };
+  }, [exitFullscreenMode]);
 
   const handleEnter = () => {
     setHasEntered(true);
@@ -48,14 +86,22 @@ export default function FullVideoPage() {
     }
   };
 
+  const handleReturn = (e: React.MouseEvent) => {
+    e.preventDefault();
+    exitFullscreenMode();
+    router.push("/");
+  };
+
   return (
     <main className="relative w-screen h-screen bg-[#0d0d0c] overflow-hidden text-[#F6F3E9] select-none">
-      {/* Return Button with Frosted Glassmorphism */}
+      {/* Return Button with Frosted Glassmorphism, Safe Area Clearance, and Fullscreen Exit */}
       <Link
         href="/"
-        className="absolute top-6 left-6 z-30 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.4)] text-xs uppercase tracking-wider font-['Chillax-Medium',sans-serif] text-white transition-all transform hover:-translate-x-0.5 active:scale-95"
+        onClick={handleReturn}
+        style={{ top: "max(1.5rem, calc(env(safe-area-inset-top, 0px) + 0.85rem))" }}
+        className="absolute left-6 z-30 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 bg-gradient-to-b from-white/30 to-white/10 backdrop-blur-2xl shadow-[0_8px_24px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.7)] text-xs uppercase tracking-wider font-['Chillax-Medium',sans-serif] text-white transition-all transform hover:-translate-x-0.5 active:scale-95"
       >
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft className="w-4 h-4 text-[#A6865E]" />
         <span>Return to Sanctuary</span>
       </Link>
 

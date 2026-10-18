@@ -128,15 +128,15 @@ function Btn({
     variant === "light"
       ? "bg-[#F6F3E9] text-[#0d0d0c] hover:bg-white shadow-[0_10px_30px_rgba(246,243,233,0.2)]"
       : variant === "goldGlass"
-      ? "border border-[#A6865E]/50 bg-[#A6865E]/15 text-[#F6F3E9] hover:bg-[#A6865E]/25 hover:border-[#A6865E] backdrop-blur-2xl shadow-[0_8px_32px_rgba(166,134,94,0.25),inset_0_1px_0_rgba(255,255,255,0.3)]"
+      ? "border border-[#A6865E]/90 bg-gradient-to-b from-[#A6865E]/40 via-[#A6865E]/25 to-[#A6865E]/15 text-white hover:from-[#A6865E]/55 hover:to-[#A6865E]/30 hover:border-[#F6F3E9] backdrop-blur-3xl shadow-[0_14px_45px_rgba(0,0,0,0.7),0_0_28px_rgba(166,134,94,0.4),inset_0_1px_1.5px_rgba(255,255,255,0.8),inset_0_-1px_1px_rgba(0,0,0,0.5)]"
       : variant === "gold"
       ? "border border-[#A6865E]/40 bg-[#A6865E]/10 text-[#A6865E] hover:bg-[#A6865E]/20 backdrop-blur-md"
-      : "border border-white/25 bg-white/10 text-[#F6F3E9] hover:bg-white/20 hover:border-white/40 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.25)]"
+      : "border border-white/50 bg-gradient-to-b from-white/35 via-white/20 to-white/[0.08] text-white hover:from-white/45 hover:to-white/25 hover:border-white/80 backdrop-blur-3xl shadow-[0_14px_45px_rgba(0,0,0,0.7),inset_0_1px_1.5px_rgba(255,255,255,0.85),inset_0_-1px_1px_rgba(0,0,0,0.5)]"
   }`;
   return (
     <motion.div
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.96 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       transition={SPRING}
       className={full ? "w-full" : "inline-block"}
     >
@@ -243,20 +243,20 @@ function Dock({ onReserve }: { onReserve: () => void }) {
     return () => io.disconnect();
   }, []);
   return (
-    <div className="pointer-events-none fixed inset-x-0 z-50 flex justify-center" style={{ top: "max(0.75rem, env(safe-area-inset-top))" }}>
+    <div className="pointer-events-none fixed inset-x-0 z-50 flex justify-center" style={{ top: "max(1.75rem, calc(env(safe-area-inset-top, 0px) + 0.95rem))" }}>
       <motion.header
         initial={{ y: -64, opacity: 0, scale: 0.94 }} animate={{ y: 0, opacity: 1, scale: 1 }} transition={{ ...SOFT, delay: 0.3 }}
         onMouseMove={(e) => mouseX.set(e.clientX)} onMouseLeave={() => mouseX.set(Infinity)}
         className={`pointer-events-auto flex max-w-[94vw] items-center gap-1 rounded-full px-2.5 py-1.5 sm:gap-1.5 sm:px-3 sm:py-2 ${GLASS_HI}`}
       >
-        <a href="#hero" onClick={go("hero")} aria-label="ZEN home" className={`pl-2 pr-2 text-base tracking-[0.25em] text-white sm:text-lg ${F_BOLD}`}>ZEN</a>
+        <a href="#hero" onClick={go("hero")} aria-label="ZEN home" className={`pl-2 pr-2 text-xl tracking-[0.16em] font-bold text-white sm:text-2xl ${F_HEAD}`}>ZEN</a>
         <span className="mx-0.5 h-4 w-px bg-white/35" aria-hidden />
         <nav className="flex items-center gap-0.5" aria-label="Main">
           {DOCK.map((d) => <DockItem key={d.id} item={d} mouseX={mouseX} active={active === d.id} />)}
         </nav>
         <motion.button
           whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={SPRING} onClick={onReserve}
-          className={`ml-1 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-[#F6F3E9] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] hover:bg-white/20 hover:border-white/40 transition-colors ${F_MED}`}
+          className={`ml-1 rounded-full border border-white/40 bg-gradient-to-b from-white/25 to-white/10 px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold text-white backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] hover:bg-white/25 transition-colors ${F_MED}`}
         >
           Reserve
         </motion.button>
@@ -268,17 +268,36 @@ function Dock({ onReserve }: { onReserve: () => void }) {
 /* ------------------------------------------------------------------ */
 /*  Hero – spring-smoothed 120-frame scrub + scroll-linked copy        */
 /* ------------------------------------------------------------------ */
-function HeroPhase({ p, inR, outR, children }: { p: MotionValue<number>; inR?: [number, number]; outR?: [number, number]; children: ReactNode }) {
+function HeroPhase({
+  p,
+  inR,
+  outR,
+  baseY = 0,
+  liftY = -50,
+  children,
+}: {
+  p: MotionValue<number>;
+  inR?: [number, number];
+  outR?: [number, number];
+  baseY?: number;
+  liftY?: number;
+  children: ReactNode;
+}) {
   const input = [...(inR ?? [0]), ...(outR ?? [1])];
   const o = [...(inR ? [0, 1] : [1]), ...(outR ? [1, 0] : [1])];
   const opacity = useTransform(p, input, o);
-  const y = useTransform(p, input, [...(inR ? [40, 0] : [0]), ...(outR ? [0, -40] : [0])]);
+  // Physical tracking: text lifts with the garage gate
+  const gateTrack = useTransform(
+    p,
+    [inR ? inR[0] : 0, outR ? outR[1] : 1],
+    [baseY, baseY + liftY]
+  );
   const scale = useTransform(p, input, [...(inR ? [0.96, 1] : [1]), ...(outR ? [1, 1.03] : [1])]);
   const blur = useTransform(p, input, o.map((v) => (1 - v) * 12));
   const filter = useMotionTemplate`blur(${blur}px)`;
   const pe = useTransform(opacity, (v) => (v > 0.5 ? "auto" : "none"));
   return (
-    <motion.div style={{ opacity, y, scale, filter, pointerEvents: pe }} className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+    <motion.div style={{ opacity, y: gateTrack, scale, filter, pointerEvents: pe }} className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
       {children}
     </motion.div>
   );
@@ -295,7 +314,7 @@ function Hero({ onReserve }: { onReserve: () => void }) {
   const [ready, setReady] = useState(false);
 
   const { scrollYProgress } = useScroll({ target: runway, offset: ["start start", "end end"] });
-  const p = useSpring(scrollYProgress, { stiffness: 140, damping: 32, mass: 0.5 });
+  const p = useSpring(scrollYProgress, { stiffness: 80, damping: 36, mass: 0.7 });
   const zoom = useTransform(p, [0, 1], [1.08, 1]);
   const cueOpacity = useTransform(p, [0, 0.05], [0.7, 0]);
 
@@ -368,7 +387,7 @@ function Hero({ onReserve }: { onReserve: () => void }) {
   }, [draw]);
 
   return (
-    <div ref={runway} id="hero" className="relative h-[540vh] w-full bg-[#0d0d0c] sm:h-[600vh]">
+    <div ref={runway} id="hero" className="relative h-[850vh] w-full bg-[#0d0d0c] sm:h-[950vh]">
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
         <AnimatePresence>
           {!ready && (
@@ -385,8 +404,8 @@ function Hero({ onReserve }: { onReserve: () => void }) {
         <motion.canvas ref={canvasRef} style={{ scale: zoom }} className="absolute inset-0 h-full w-full" aria-label="ZEN GT scroll animation" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0d0c] via-transparent to-[#0d0d0c]/70" />
 
-        <HeroPhase p={p} outR={[0.14, 0.24]}>
-          <span className={`mb-3 ${KICKER}`}>ZEN GT</span>
+        <HeroPhase p={p} outR={[0.14, 0.24]} baseY={15} liftY={-65}>
+          <span className={`mb-3 ${KICKER}`}><span className={`${F_HEAD} text-sm tracking-[0.2em]`}>ZEN</span> GT</span>
           <h1 className={H_XL}>Pure form.<br />Pure mind.</h1>
           <p className={`mt-3 max-w-xs ${LEAD}`}>Silence, engineered.</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -394,16 +413,16 @@ function Hero({ onReserve }: { onReserve: () => void }) {
             <Btn href="/full-video" variant="glass">Watch the film</Btn>
           </div>
         </HeroPhase>
-        <HeroPhase p={p} inR={[0.24, 0.32]} outR={[0.42, 0.5]}>
+        <HeroPhase p={p} inR={[0.24, 0.32]} outR={[0.42, 0.5]} baseY={-65} liftY={-50}>
           <h2 className={H_XL}>Silence<br />awakens.</h2>
           <p className={`mt-3 max-w-xs ${LEAD}`}>A silhouette forged in stillness.</p>
         </HeroPhase>
-        <HeroPhase p={p} inR={[0.5, 0.58]} outR={[0.7, 0.78]}>
+        <HeroPhase p={p} inR={[0.5, 0.58]} outR={[0.7, 0.78]} baseY={-115} liftY={-30}>
           <h2 className={H_XL}>Form follows<br />mind.</h2>
           <p className={`mt-3 max-w-xs ${LEAD}`}>Nothing added. Nothing wasted.</p>
         </HeroPhase>
-        <HeroPhase p={p} inR={[0.78, 0.86]}>
-          <h2 className={H_XL}>Meet the<br />ZEN GT.</h2>
+        <HeroPhase p={p} inR={[0.78, 0.86]} baseY={-140} liftY={-10}>
+          <h2 className={H_XL}>Meet the<br /><span className={F_HEAD}>ZEN</span> GT.</h2>
           <p className={`mt-3 max-w-xs ${LEAD}`}>Electric. Effortless. Yours.</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Btn href="#showcase" variant="glass">Explore</Btn>
@@ -744,7 +763,7 @@ function GlassSelect({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.18, ease: EASE }}
-            className="absolute left-0 right-0 top-full mt-2 z-50 space-y-0.5 overflow-hidden rounded-2xl border border-white/20 bg-[#161615]/95 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl"
+            className="absolute left-0 right-0 top-full mt-2 z-50 space-y-0.5 overflow-hidden rounded-2xl border border-white/20 bg-[#161615]/95 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {options.map((opt) => {
               const selected = opt === value;
@@ -823,7 +842,7 @@ function ReserveSheet({ open, onClose }: { open: boolean; onClose: () => void })
             drag={mobile ? "y" : false} dragControls={controls} dragListener={false}
             dragConstraints={{ top: 0, bottom: 0 }} dragElastic={{ top: 0, bottom: 0.7 }}
             onDragEnd={(_, i) => (i.offset.y > 120 || i.velocity.y > 600) && onClose()}
-            className={`relative max-h-[92dvh] w-full overflow-y-auto overscroll-contain rounded-t-[32px] border border-white/25 bg-[#121211]/85 p-6 pb-[max(2rem,env(safe-area-inset-bottom))] text-[#F6F3E9] backdrop-blur-3xl shadow-[0_30px_70px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.35)] sm:max-w-lg sm:rounded-[32px] sm:p-9`}
+            className={`relative max-h-[92dvh] w-full overflow-y-auto overscroll-contain rounded-t-[32px] border border-white/25 bg-[#121211]/85 p-6 pb-[max(2rem,env(safe-area-inset-bottom))] text-[#F6F3E9] backdrop-blur-3xl shadow-[0_30px_70px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.35)] sm:max-w-lg sm:rounded-[32px] sm:p-9 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden`}
           >
             <div onPointerDown={(e) => controls.start(e)} className="-mt-2 mb-4 flex cursor-grab touch-none justify-center pb-2 sm:hidden"><span className="h-1.5 w-10 rounded-full bg-white/25" /></div>
             <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} transition={SPRING} onClick={onClose} aria-label="Close" className="absolute right-4 top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/10 text-[#E6E2D8] hover:bg-white/20 hover:text-white sm:right-6 sm:top-6"><X className="h-4 w-4" /></motion.button>

@@ -114,7 +114,7 @@ export default function ReservationModal({ isOpen, onClose }: ReservationModalPr
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={EASE_SPRING}
-            className="relative w-full max-w-lg bg-[#141413]/90 border border-white/20 backdrop-blur-3xl p-6 sm:p-8 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.3)] text-[#F6F3E9] max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-lg bg-[#141413]/90 border border-white/20 backdrop-blur-3xl p-6 sm:p-8 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.3)] text-[#F6F3E9] max-h-[90vh] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             <button
               onClick={onClose}
