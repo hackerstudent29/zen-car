@@ -4,6 +4,8 @@ node_modules/
 .pnp.js
 
 # Production build output
+.next/
+out/
 dist/
 dist-ssr/
 *.local
@@ -15,18 +17,15 @@ dist-ssr/
 .env.test.local
 .env.production.local
 
-# Large Archive Files & Raw Zips (exceeds GitHub 100MB limit)
+# Large Archive Files, Raw Zips & Asset Backups
+archive/
 *.zip
 *.tar.gz
 *.rar
 *.7z
-opening shot frames.zip
-full video of the car.zip
 
-# Unused heavy media & unreferenced frame archives
+# Heavy video frame assets
 public/full_video/
-/antigravity images/
-!public/antigravity images/
 
 # Logs & Debugging
 npm-debug.log*

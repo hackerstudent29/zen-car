@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Web Font Imports --- */
+@import url('/fonts/Chillax_Complete/Chillax_Complete/Fonts/WEB/css/chillax.css');
+@import url('/fonts/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/css/satoshi.css');
+@import url('/fonts/Rosaline_Complete/Rosaline_Complete/Fonts/WEB/css/rosaline.css');
+
+:root {
+  /* Color Palette - White Yellow (#F6F3E9) & Obsidian Dark Sanctuary */
+  --bg-primary: #F6F3E9;
+  --bg-secondary: #EBE7DC;
+  --text-primary: #1C1B19;
+  --text-secondary: #6B665B;
+  --accent-gold: #A6865E;
+  --accent-gold-hover: #8D6F4B;
+  --border-light: rgba(28, 27, 25, 0.1);
+  --border-strong: rgba(28, 27, 25, 0.2);
+  --white: #FFFFFF;
+  --dark-overlay: rgba(28, 27, 25, 0.45);
+  
+  /* Font Families */
+  --font-heading: 'Rosaline-Regular', Georgia, serif;
+  --font-subheading: 'Chillax-Regular', sans-serif;
+  --font-subheading-medium: 'Chillax-Medium', sans-serif;
+  --font-subheading-bold: 'Chillax-Bold', sans-serif;
+  --font-body: 'Satoshi-Regular', sans-serif;
+  --font-body-medium: 'Satoshi-Medium', sans-serif;
+  --font-body-bold: 'Satoshi-Bold', sans-serif;
+}
+
+html {
+  font-size: 16px;
+  background-color: #0d0d0c;
+  color: #F6F3E9;
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: clip;
+  position: relative;
+  min-height: 100vh;
+  background-color: #0d0d0c;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Subtle Film Grain Overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Laser Scanner Animation */
+@keyframes laserScan {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.laser-scanner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #A6865E, #F6F3E9, #A6865E, transparent);
+  box-shadow: 0 0 16px rgba(166, 134, 94, 0.8);
+  animation: laserScan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Corner HUD Brackets */
+.hud-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(166, 134, 94, 0.6);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hud-tl { top: 12px; left: 12px; border-top: 1.5px solid; border-left: 1.5px solid; }
+.hud-tr { top: 12px; right: 12px; border-top: 1.5px solid; border-right: 1.5px solid; }
+.hud-bl { bottom: 12px; left: 12px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
+.hud-br { bottom: 12px; right: 12px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+
+/* Grid Overlay */
+.canvas-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 5;
+}

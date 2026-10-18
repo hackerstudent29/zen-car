@@ -10,17 +10,17 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Bundler-Vite%205.x-646CFF?logo=vite&style=flat-square" alt="Vite 5" />
+  <img src="https://img.shields.io/badge/Framework-Next.js%2015-black?logo=next.js&style=flat-square" alt="Next.js 15" />
+  <img src="https://img.shields.io/badge/Library-React%2019-61DAFB?logo=react&style=flat-square" alt="React 19" />
+  <img src="https://img.shields.io/badge/Language-TypeScript-3178C6?logo=typescript&style=flat-square" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Physics-Motion%20%7C%20Apple%20Springs-E10098?style=flat-square" alt="Motion" />
+  <img src="https://img.shields.io/badge/Scroll-Lenis%20Inertia-black?style=flat-square" alt="Lenis" />
   <img src="https://img.shields.io/badge/Canvas-60%20FPS%20Scrollytelling-10B981?style=flat-square" alt="60 FPS Canvas" />
-  <img src="https://img.shields.io/badge/License-MIT-gold.svg?style=flat-square" alt="License: MIT" />
-  <img src="https://img.shields.io/badge/Accessibility-WCAG%20AA%20Compliant-green?style=flat-square" alt="WCAG AA" />
-  <img src="https://img.shields.io/badge/SEO-100%2F100-brightgreen?style=flat-square" alt="SEO 100/100" />
-  <img src="https://img.shields.io/badge/Security-HSTS%20%7C%20TLS%201.3-blue?style=flat-square" alt="TLS 1.3" />
 </p>
 
 > *“A study in automotive minimalism, whisper acoustics, and high-performance tranquility.”*
 
-**ZEN GT** is an ultra-premium, interactive web sanctuary for a next-generation bespoke electric hypercar. Engineered with cinematic scrollytelling, high-frame-rate canvas animation, interactive 3D HUD telemetry mechanics, an ambient meditative sanctuary, and an audio-visual full-drive immersion theater.
+**ZEN GT** is an ultra-premium, interactive web sanctuary for a next-generation bespoke electric hypercar. Engineered with Next.js 15 App Router, React 19, TypeScript, Apple-grade spring physics via Motion, Lenis inertial momentum scrolling, 120-frame canvas scrollytelling, real-time HUD telemetry, and a procedural Web Audio API synthesizer.
 
 🔗 **Live Production Experience**: [https://zen-car-eta.vercel.app](https://zen-car-eta.vercel.app)
 
