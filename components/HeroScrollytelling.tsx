@@ -24,10 +24,10 @@ export default function HeroScrollytelling({ onOpenReserve }: HeroScrollytelling
   const targetFrameRef = useRef(0);
   const animFrameIdRef = useRef<number | null>(null);
 
-  // Format frame number with 4 digits: frame_0001.webp
+  // Format frame number with 4 digits: 0001.webp in webp/ subdirectory
   const getFramePath = useCallback((index: number) => {
     const padded = String(index + 1).padStart(4, "0");
-    return `/opening_shot_frames/frame_${padded}.webp`;
+    return `/opening_shot_frames/webp/${padded}.webp`;
   }, []);
 
   // Preload frames progressively
@@ -36,18 +36,33 @@ export default function HeroScrollytelling({ onOpenReserve }: HeroScrollytelling
     const images: HTMLImageElement[] = [];
 
     for (let i = 0; i < TOTAL_FRAMES; i++) {
+      const padded = String(i + 1).padStart(4, "0");
       const img = new Image();
-      img.src = getFramePath(i);
+      img.src = `/opening_shot_frames/webp/${padded}.webp`;
       img.onload = () => {
         loadedCount++;
         setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100));
-        if (loadedCount >= Math.min(25, TOTAL_FRAMES)) {
-          // Allow display as soon as critical frames are ready
+        if (i === 0) {
+          drawFrame(0);
+        }
+        if (loadedCount >= Math.min(15, TOTAL_FRAMES)) {
           setIsLoaded(true);
         }
       };
       img.onerror = () => {
-        loadedCount++;
+        // Fallback to high-res jpg
+        const fallback = new Image();
+        fallback.src = `/opening_shot_frames/frames/${padded}.jpg`;
+        fallback.onload = () => {
+          images[i] = fallback;
+          loadedCount++;
+          setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100));
+          if (i === 0) drawFrame(0);
+          if (loadedCount >= Math.min(15, TOTAL_FRAMES)) setIsLoaded(true);
+        };
+        fallback.onerror = () => {
+          loadedCount++;
+        };
       };
       images.push(img);
     }
