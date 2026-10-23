@@ -117,3 +117,24 @@ body::-webkit-scrollbar {
   pointer-events: none;
   z-index: 5;
 }
+
+/* Custom modal dark scrollbar */
+.modal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(166, 134, 94, 0.35) rgba(255, 255, 255, 0.03);
+}
+.modal-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.modal-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 9999px;
+}
+.modal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(166, 134, 94, 0.35);
+  border-radius: 9999px;
+}
+.modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(166, 134, 94, 0.65);
+}
+

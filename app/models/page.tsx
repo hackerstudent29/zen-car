@@ -52,6 +52,36 @@ export default function ModelsPage() {
     } catch {}
   }, []);
 
+  // Lock body scroll and pause Lenis while Quick Spec modal is open so popup scrolls smoothly
+  useEffect(() => {
+    if (quickViewVehicle) {
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.stop();
+      }
+      document.body.style.overflow = "hidden";
+    } else {
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.start();
+      }
+      document.body.style.overflow = "";
+    }
+    return () => {
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.start();
+      }
+      document.body.style.overflow = "";
+    };
+  }, [quickViewVehicle]);
+
+  // Escape key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setQuickViewVehicle(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const toggleFavorite = (id: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -330,104 +360,150 @@ export default function ModelsPage() {
           <div
             role="dialog"
             aria-modal="true"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+            data-lenis-prevent="true"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
           >
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setQuickViewVehicle(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+              className="absolute inset-0 bg-black/85 backdrop-blur-md"
             />
+
+            {/* Modal Card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 16 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={SPRING}
-              className={`relative z-10 w-full max-w-2xl rounded-3xl p-6 sm:p-8 ${GLASS} bg-[#141413]/95 max-h-[90vh] overflow-y-auto no-scrollbar border border-white/20`}
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+              className="relative z-10 w-full max-w-4xl lg:max-w-5xl rounded-t-[28px] sm:rounded-3xl bg-[#121213] border border-white/20 shadow-[0_24px_70px_rgba(0,0,0,0.85)] flex flex-col max-h-[88dvh] sm:max-h-[85vh] overflow-hidden"
             >
+              {/* Close Button Header */}
               <button
                 onClick={() => setQuickViewVehicle(null)}
                 aria-label="Close dialog"
-                className="absolute top-5 right-5 grid h-9 w-9 place-items-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-30 grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-full bg-black/70 hover:bg-white/20 border border-white/20 text-white backdrop-blur-md transition-all shadow-lg hover:scale-105"
               >
                 <X className="h-4 w-4" />
               </button>
 
-              <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 border border-white/10 bg-black">
-                <Image
-                  src={quickViewVehicle.image}
-                  alt={quickViewVehicle.name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <span className="text-[10px] uppercase tracking-widest text-[#A6865E] font-['Chillax-Medium',sans-serif]">
-                    {quickViewVehicle.category}
+              {/* Main Content Area: Responsive Split Grid on md+ / Stacked on Mobile */}
+              <div
+                data-lenis-prevent="true"
+                className="flex-1 overflow-y-auto modal-scrollbar grid grid-cols-1 md:grid-cols-12 min-h-0"
+                style={{ overscrollBehavior: "contain" }}
+              >
+                {/* Visual Showcase & Telemetry Grid (Left Column on PC/Tablet) */}
+                <div className="md:col-span-5 lg:col-span-6 bg-black/40 p-4 sm:p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/10">
+                  <div>
+                    <div className="relative aspect-[16/10] rounded-2xl overflow-hidden mb-3.5 border border-white/10 bg-black">
+                      <Image
+                        src={quickViewVehicle.image}
+                        alt={quickViewVehicle.name}
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <span className="text-[10px] uppercase tracking-widest text-[#A6865E] font-['Chillax-Medium',sans-serif] block">
+                          {quickViewVehicle.category}
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-bold font-['Rosaline-Regular',Georgia,serif] text-white">
+                          {quickViewVehicle.name}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="text-[11px] text-[#E6E2D8]/60 font-mono mb-3 flex items-center justify-between">
+                      <span className="uppercase text-[#E6E2D8]/40">Powertrain</span>
+                      <span className="text-white font-semibold">{quickViewVehicle.powertrain}</span>
+                    </div>
+                  </div>
+
+                  {/* 4-Metric Telemetry Grid */}
+                  <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
+                      <span className="text-[8px] sm:text-[9px] uppercase tracking-wider text-[#E6E2D8]/50 block">0-100 KM/H</span>
+                      <span className="text-base sm:text-lg font-bold font-mono text-white">{quickViewVehicle.acceleration}s</span>
+                    </div>
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
+                      <span className="text-[8px] sm:text-[9px] uppercase tracking-wider text-[#E6E2D8]/50 block">TOP SPEED</span>
+                      <span className="text-base sm:text-lg font-bold font-mono text-white">{quickViewVehicle.topSpeed} km/h</span>
+                    </div>
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
+                      <span className="text-[8px] sm:text-[9px] uppercase tracking-wider text-[#E6E2D8]/50 block">OUTPUT</span>
+                      <span className="text-base sm:text-lg font-bold font-mono text-white">{quickViewVehicle.power} hp</span>
+                    </div>
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
+                      <span className="text-[8px] sm:text-[9px] uppercase tracking-wider text-[#E6E2D8]/50 block">RANGE</span>
+                      <span className="text-base sm:text-lg font-bold font-mono text-[#A6865E]">{quickViewVehicle.range} km</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Narrative & Engineering Specs (Right Column on PC/Tablet) */}
+                <div className="md:col-span-7 lg:col-span-6 p-4 sm:p-6 flex flex-col justify-between space-y-4">
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#A6865E] font-['Chillax-Medium',sans-serif] mb-1.5">
+                        Sanctuary Concept
+                      </h4>
+                      <p className="text-xs sm:text-sm text-[#E6E2D8]/80 leading-relaxed font-['Satoshi-Regular',sans-serif]">
+                        {quickViewVehicle.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-white/10">
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#A6865E] font-['Chillax-Medium',sans-serif] mb-2.5">
+                        Key Engineering Calibrations
+                      </h4>
+                      <ul className="grid grid-cols-1 gap-2">
+                        {quickViewVehicle.features.map((feat) => (
+                          <li
+                            key={feat}
+                            className="text-xs text-[#E6E2D8]/75 flex items-start gap-2.5 font-['Satoshi-Regular',sans-serif]"
+                          >
+                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#A6865E] shrink-0" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-between text-xs">
+                      <span className="text-[#E6E2D8]/60 font-mono text-[11px]">WEIGHT CALIBRATION</span>
+                      <span className="text-[#A6865E] font-mono font-bold text-xs">{quickViewVehicle.weightRatio}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Permanently Docked Bottom Bar (Always visible and never pushed off-screen) */}
+              <div className="shrink-0 border-t border-white/15 bg-[#141413]/95 backdrop-blur-xl px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3">
+                <div>
+                  <span className="text-[9px] uppercase tracking-widest text-[#E6E2D8]/50 block">
+                    ALLOCATION BASE
                   </span>
-                  <h3 className="text-2xl font-bold font-['Rosaline-Regular',Georgia,serif] text-white">
-                    {quickViewVehicle.name}
-                  </h3>
+                  <span className="text-lg sm:text-2xl font-bold font-mono text-white">
+                    {quickViewVehicle.priceFormatted}
+                  </span>
                 </div>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
-                  <span className="text-[9px] uppercase tracking-wider text-[#E6E2D8]/50 block">0-100 KM/H</span>
-                  <span className="text-lg font-bold font-mono text-white">{quickViewVehicle.acceleration}s</span>
-                </div>
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
-                  <span className="text-[9px] uppercase tracking-wider text-[#E6E2D8]/50 block">TOP SPEED</span>
-                  <span className="text-lg font-bold font-mono text-white">{quickViewVehicle.topSpeed} km/h</span>
-                </div>
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
-                  <span className="text-[9px] uppercase tracking-wider text-[#E6E2D8]/50 block">HORSEPOWER</span>
-                  <span className="text-lg font-bold font-mono text-white">{quickViewVehicle.power} hp</span>
-                </div>
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
-                  <span className="text-[9px] uppercase tracking-wider text-[#E6E2D8]/50 block">EST. RANGE</span>
-                  <span className="text-lg font-bold font-mono text-[#A6865E]">{quickViewVehicle.range} km</span>
-                </div>
-              </div>
-
-              <div className="space-y-4 mb-6">
-                <p className="text-sm text-[#E6E2D8]/80 leading-relaxed font-['Satoshi-Regular',sans-serif]">
-                  {quickViewVehicle.description}
-                </p>
-                <div>
-                  <h4 className="text-xs uppercase tracking-wider text-[#A6865E] font-['Chillax-Medium',sans-serif] mb-2">
-                    Key Engineering Specifications
-                  </h4>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {quickViewVehicle.features.map((feat) => (
-                      <li
-                        key={feat}
-                        className="text-xs text-[#E6E2D8]/70 flex items-center gap-2 font-['Satoshi-Regular',sans-serif]"
-                      >
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#A6865E]" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                <div>
-                  <span className="text-[10px] uppercase tracking-widest text-[#E6E2D8]/50 block">ALLOCATION BASE</span>
-                  <span className="text-xl font-bold font-mono text-white">{quickViewVehicle.priceFormatted}</span>
-                </div>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                   <button
                     onClick={() => setQuickViewVehicle(null)}
-                    className="px-5 py-2.5 rounded-full border border-white/20 text-xs font-['Chillax-Medium',sans-serif] hover:bg-white/10"
+                    className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-white/20 text-xs font-['Chillax-Medium',sans-serif] text-white hover:bg-white/10 transition-colors"
                   >
                     Close
                   </button>
                   <Link
                     href={`/contact?model=${encodeURIComponent(quickViewVehicle.name)}`}
-                    className="px-6 py-2.5 rounded-full bg-[#A6865E] text-black text-xs font-semibold font-['Chillax-Medium',sans-serif] hover:bg-[#b89569] transition-colors"
+                    className="px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-[#A6865E] text-black text-xs font-semibold font-['Chillax-Medium',sans-serif] hover:bg-[#b89569] transition-all shadow-md hover:shadow-[#A6865E]/20"
                   >
                     Book Test Drive
                   </Link>
