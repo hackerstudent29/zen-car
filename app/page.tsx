@@ -125,7 +125,6 @@ const DOCK = [
   { id: "hero", label: "Home", d: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></> },
   { id: "showcase", label: "Anatomy", d: <><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></> },
   { id: "/models", label: "Showroom", d: <><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" /><circle cx="7" cy="17" r="2" /><path d="M9 17h6" /><circle cx="17" cy="17" r="2" /></> },
-  { id: "/configurator", label: "Studio", d: <><line x1="4" x2="20" y1="21" y2="21" /><line x1="4" x2="20" y1="3" y2="3" /><line x1="12" x2="12" y1="7" y2="17" /><circle cx="12" cy="12" r="3" /></> },
   { id: "philosophy", label: "Philosophy", d: <><circle cx="12" cy="12" r="10" /><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" /></> },
   { id: "/full-video", label: "Film", d: <polygon points="5 3 19 12 5 21 5 3" /> },
   { id: "/contact", label: "Concierge", d: <><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></> },
@@ -137,8 +136,22 @@ const DOCK = [
 function go(id: string) {
   return (e: React.MouseEvent) => {
     e.preventDefault();
-    if (id === "hero") window.scrollTo({ top: 0, behavior: "smooth" });
-    else document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    if (id === "hero") {
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+    const el = document.getElementById(id);
+    if (el) {
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.scrollTo(el, { offset: 0, duration: 1.4 });
+      } else {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 }
 
@@ -860,7 +873,6 @@ function Footer({ onReserve }: { onReserve: () => void }) {
           <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-['Chillax-Medium',sans-serif]" aria-label="Footer Navigation">
             <a href="#showcase" onClick={go("showcase")} className={link}>Anatomy</a>
             <Link href="/models" className={link}>Showroom</Link>
-            <Link href="/configurator" className={link}>Studio</Link>
             <a href="#philosophy" onClick={go("philosophy")} className={link}>Philosophy</a>
             <a href="#gallery" onClick={go("gallery")} className={link}>Gallery</a>
             <Link href="/full-video" className={link}>Film</Link>

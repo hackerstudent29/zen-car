@@ -286,10 +286,10 @@ export default function ModelsPage() {
                         Quick Spec
                       </button>
                       <Link
-                        href={`/configurator?model=${car.id}`}
+                        href={`/contact?model=${encodeURIComponent(car.name)}`}
                         className="flex-1 py-2.5 px-3 rounded-full bg-[#A6865E] text-black text-xs font-semibold font-['Chillax-Medium',sans-serif] hover:bg-[#b89569] transition-colors flex items-center justify-center gap-1 text-center"
                       >
-                        <span>Configure</span>
+                        <span>Reserve</span>
                         <ArrowRight className="h-3 w-3" />
                       </Link>
                     </div>
@@ -426,10 +426,10 @@ export default function ModelsPage() {
                     Close
                   </button>
                   <Link
-                    href={`/configurator?model=${quickViewVehicle.id}`}
+                    href={`/contact?model=${encodeURIComponent(quickViewVehicle.name)}`}
                     className="px-6 py-2.5 rounded-full bg-[#A6865E] text-black text-xs font-semibold font-['Chillax-Medium',sans-serif] hover:bg-[#b89569] transition-colors"
                   >
-                    Enter Atelier Studio
+                    Book Test Drive
                   </Link>
                 </div>
               </div>

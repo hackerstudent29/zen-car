@@ -32,7 +32,6 @@ const GLASS_HI =
 const NAV_ITEMS = [
   { href: "/", label: "Home", icon: Home },
   { href: "/models", label: "Showroom", icon: Car },
-  { href: "/configurator", label: "Studio", icon: SlidersHorizontal },
   { href: "/full-video", label: "Film", icon: Play },
   { href: "/contact", label: "Concierge", icon: Mail },
 ];
